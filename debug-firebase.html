@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Firebase Debug Console</h1>
+    <div id="debugOutput"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration and User Management -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-user-management.js"></script>
+
+    <script>
+        function debugLog(message, type = 'info') {
+            const output = document.getElementById('debugOutput');
+            const div = document.createElement('div');
+            div.className = `debug ${type}`;
+            div.textContent = message;
+            output.appendChild(div);
+            console.log(message);
+        }
+
+        async function runDebugTests() {
+            debugLog('Starting Firebase Debug Tests...', 'info');
+            
+            // Test 1: Firebase SDK
+            debugLog('Test 1: Firebase SDK', 'info');
+            if (typeof firebase === 'undefined') {
+                debugLog('❌ Firebase SDK not loaded', 'error');
+                return;
+            }
+            debugLog('✅ Firebase SDK loaded', 'success');
+            
+            // Test 2: Firebase Config
+            debugLog('Test 2: Firebase Configuration', 'info');
+            if (!window.firebaseDB || !window.firebaseAuth) {
+                debugLog('❌ Firebase not initialized', 'error');
+                return;
+            }
+            debugLog('✅ Firebase initialized', 'success');
+            debugLog(`Project ID: ${firebase.app().options.projectId}`, 'info');
+            
+            // Test 3: User Management
+            debugLog('Test 3: User Management', 'info');
+            if (!window.firebaseUserManagement) {
+                debugLog('❌ Firebase User Management not available', 'error');
+                return;
+            }
+            debugLog('✅ Firebase User Management available', 'success');
+            
+            // Test 4: Database Connection
+            debugLog('Test 4: Database Connection', 'info');
+            try {
+                const testDoc = await window.firebaseDB.collection('test').doc('connection').get();
+                debugLog('✅ Database connection successful', 'success');
+            } catch (error) {
+                debugLog(`❌ Database connection failed: ${error.message}`, 'error');
+                return;
+            }
+            
+            // Test 5: Get Users
+            debugLog('Test 5: Get Users', 'info');
+            try {
+                const result = await window.firebaseUserManagement.getAllUsers();
+                debugLog(`✅ Get users result: success=${result.success}, count=${result.users ? result.users.length : 0}`, 'success');
+                if (result.users && result.users.length > 0) {
+                    debugLog('Users found:', 'info');
+                    result.users.forEach(user => {
+                        debugLog(`  - ${user.username} (${user.email || 'no email'})`, 'info');
+                    });
+                } else {
+                    debugLog('No users found in database', 'info');
+                }
+            } catch (error) {
+                debugLog(`❌ Get users failed: ${error.message}`, 'error');
+            }
+            
+            // Test 6: Create Test User
+            debugLog('Test 6: Create Test User', 'info');
+            try {
+                const testUser = {
+                    username: 'test_user_' + Date.now(),
+                    password: 'test123',
+                    email: 'test@example.com',
+                    role: 'student'
+                };
+                const result = await window.firebaseUserManagement.createUser(testUser);
+                if (result.success) {
+                    debugLog('✅ Test user created successfully', 'success');
+                    
+                    // Test 7: Get Users Again
+                    debugLog('Test 7: Get Users After Creation', 'info');
+                    const result2 = await window.firebaseUserManagement.getAllUsers();
+                    debugLog(`✅ Users after creation: ${result2.users ? result2.users.length : 0}`, 'success');
+                } else {
+                    debugLog(`❌ Test user creation failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                debugLog(`❌ Test user creation error: ${error.message}`, 'error');
+            }
+            
+            debugLog('Debug tests completed!', 'info');
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            runDebugTests();
+        });
+    </script>
+</body>
+</html>

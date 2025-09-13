@@ -206,10 +206,18 @@
 
         // Firebase-based user management functions
         async function loadUsers(){
+            console.log('loadUsers called, firebaseUserManagement available:', !!window.firebaseUserManagement);
             if (window.firebaseUserManagement) {
-                const result = await window.firebaseUserManagement.getAllUsers();
-                return result.success ? result.users : [];
+                try {
+                    const result = await window.firebaseUserManagement.getAllUsers();
+                    console.log('Firebase getAllUsers result:', result);
+                    return result.success ? result.users : [];
+                } catch (error) {
+                    console.error('Error in loadUsers:', error);
+                    return [];
+                }
             }
+            console.log('Firebase not available, returning empty array');
             return [];
         }
         
@@ -242,11 +250,14 @@
             tbody.innerHTML = '<tr><td colspan="9" class="text-center">Loading users...</td></tr>';
             
             try {
+                console.log('Loading users from Firebase...');
                 var users = await loadUsers();
+                console.log('Loaded users:', users);
                 tbody.innerHTML = '';
                 
                 if (users.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">No users found</td></tr>';
+                    console.log('No users found in Firebase');
                     return;
                 }
                 
@@ -264,11 +275,12 @@
                                    '<td><button class="btn btn-sm btn-outline-danger" data-del="'+u.username+'">Delete</button></td>';
                     tbody.appendChild(tr);
                 });
-                updateUserSelects();
+                console.log('Rendered', users.length, 'users in the table');
+                await updateUserSelects();
                 setupTableEventListeners(); // Re-setup event listeners after rendering
             } catch (error) {
                 console.error('Error loading users:', error);
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-danger">Error loading users</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-danger">Error loading users: ' + error.message + '</td></tr>';
             }
         }
         
@@ -370,17 +382,49 @@
         }
         
         // Global function to check if user has access to a specific course
-        window.checkCourseAccess = function(username, courseId) {
-            var users = loadUsers();
-            var user = users.find(function(u) { return u.username === username; });
-            if (!user) return false;
-            return getCourseActivationStatus(user, courseId).active;
+        window.checkCourseAccess = async function(username, courseId) {
+            try {
+                var users = await loadUsers();
+                var user = users.find(function(u) { return u.username === username; });
+                if (!user) return false;
+                return getCourseActivationStatus(user, courseId).active;
+            } catch (error) {
+                console.error('Error checking course access:', error);
+                return false;
+            }
         };
 
-        function showPanel(){
+        // Global function to get user course activation info
+        window.getUserCourseActivationInfo = async function(username, courseId) {
+            try {
+                var users = await loadUsers();
+                var user = users.find(function(u) { return u.username === username; });
+                if (!user) return null;
+                return getCourseActivationStatus(user, courseId);
+            } catch (error) {
+                console.error('Error getting user course activation info:', error);
+                return null;
+            }
+        };
+
+        // Global function to get all course activations for a user
+        window.getUserAllCourseActivations = async function(username) {
+            try {
+                var users = await loadUsers();
+                var user = users.find(function(u) { return u.username === username; });
+                if (!user) return null;
+                return getCourseStatuses(user);
+            } catch (error) {
+                console.error('Error getting user course activations:', error);
+                return null;
+            }
+        };
+
+        async function showPanel(){
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminPanel').style.display = '';
-            render();
+            await render();
+            await updateUserSelects();
             setupTableEventListeners(); // Setup event listeners when panel is shown
         }
         function showLogin(){
@@ -681,7 +725,16 @@
             setupVideoManagement();
         };
 
-        if(isAdmin()) showPanel(); else showLogin();
+        // Initialize admin panel
+        console.log('Initializing admin panel...');
+        console.log('Is admin logged in:', isAdmin());
+        if(isAdmin()) {
+            console.log('Admin is logged in, showing panel...');
+            showPanel();
+        } else {
+            console.log('Admin not logged in, showing login...');
+            showLogin();
+        }
     })();
     </script>
 </body>
