@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Prime Team Platform</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5" id="adminApp">
+        <h1 class="mb-4">Admin</h1>
+        <div id="adminLogin">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Admin Login</h5>
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <label for="adminUser">Username</label>
+                            <input type="text" class="form-control" id="adminUser" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPass">Passcode</label>
+                            <input type="password" class="form-control" id="adminPass" placeholder="Enter password">
+                        </div>
+                        <div id="adminLoginError" class="text-danger mb-2" style="display:none"></div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminPanel" style="display:none">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="m-0">User Management</h5>
+                <div>
+                    <button id="logoutAdmin" class="btn btn-outline-secondary btn-sm">Logout</button>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form id="userForm" class="form-inline">
+                        <div class="form-group mr-2 mb-2">
+                            <label for="uName" class="mr-2">Username</label>
+                            <input type="text" class="form-control" id="uName" placeholder="username">
+                        </div>
+                        <div class="form-group mr-2 mb-2">
+                            <label for="uPass" class="mr-2">Password</label>
+                            <input type="text" class="form-control" id="uPass" placeholder="password">
+                        </div>
+                        <button type="submit" class="btn btn-success mb-2">Add / Update</button>
+                        <div id="userFormMsg" class="ml-3 text-danger mb-2" style="display:none"></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h6 class="card-title">Course-Specific User Activation</h6>
+                    <form id="courseActivationForm">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="activateUser">Select User</label>
+                                <select class="form-control" id="activateUser">
+                                    <option value="">Choose a user...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="activateCourse">Select Course</label>
+                                <select class="form-control" id="activateCourse">
+                                    <option value="">Choose a course...</option>
+                                    <option value="math-est-1">Math Course EST 1</option>
+                                    <option value="math-est-2">Math Course EST 2</option>
+                                    <option value="english-est-1">English Course EST 1</option>
+                                    <option value="biology-est-1">Biology Course EST 1</option>
+                                    <option value="biology-est-2">Biology Course EST 2</option>
+                                    <option value="chemistry-est-2">Chemistry Course EST 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="activationDays">Duration (Days)</label>
+                                <input type="number" class="form-control" id="activationDays" placeholder="30" min="1" max="365" value="30">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Activate Course Access</button>
+                                <div id="activationMsg" class="mt-2" style="display:none"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Video Management Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h6 class="card-title">Video Management</h6>
+                    <form id="videoManagementForm">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="videoCourse">Select Course</label>
+                                <select class="form-control" id="videoCourse">
+                                    <option value="">Choose a course...</option>
+                                    <option value="math-est-1">Math Course EST 1</option>
+                                    <option value="math-est-2">Math Course EST 2</option>
+                                    <option value="english-est-1">English Course EST 1</option>
+                                    <option value="biology-est-1">Biology Course EST 1</option>
+                                    <option value="biology-est-2">Biology Course EST 2</option>
+                                    <option value="chemistry-est-2">Chemistry Course EST 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="videoKey">Video Key</label>
+                                <input type="text" class="form-control" id="videoKey" placeholder="e.g., linear-equations">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="videoUrl">Google Drive Video URL</label>
+                                <input type="url" class="form-control" id="videoUrl" placeholder="https://drive.google.com/file/d/VIDEO_ID/preview">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Update Video URL</button>
+                                <button type="button" class="btn btn-info ml-2" id="loadVideosBtn">Load Course Videos</button>
+                                <div id="videoMsg" class="mt-2" style="display:none"></div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <!-- Video List Display -->
+                    <div id="videoList" class="mt-4" style="display:none">
+                        <h6>Current Videos for <span id="currentCourseName"></span></h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm" id="videosTable">
+                                <thead>
+                                    <tr>
+                                        <th>Video Key</th>
+                                        <th>Video URL</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Users</h6>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm mb-0" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Math EST 1</th>
+                                    <th>Math EST 2</th>
+                                    <th>English EST 1</th>
+                                    <th>Biology EST 1</th>
+                                    <th>Biology EST 2</th>
+                                    <th>Chemistry EST 2</th>
+                                    <th style="width:80px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration and Course Access -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-course-access.js"></script>
+    
+    <script>
+    (function(){
+        // Simple authentication (in production, use server-side authentication)
+        var usersKey = 'ptp_users';
+        var adminKey = 'ptp_admin_logged_in';
+        
+        // Simple hash function for basic obfuscation
+        function simpleHash(str) {
+            var hash = 0;
+            for (var i = 0; i < str.length; i++) {
+                var char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return Math.abs(hash).toString(16);
+        }
+        
+        // Obfuscated credentials (in production, use server-side authentication)
+        var ADMIN_USER = atob('SEFNT0tTSEFfMDE='); // Base64 encoded 'HAMOKSHA_01'
+        var ADMIN_PASS = atob('MTU5NzUz'); // Base64 encoded '159753'
+
+        function loadUsers(){
+            try{ return JSON.parse(localStorage.getItem(usersKey)) || []; }catch(e){ return []; }
+        }
+        function saveUsers(list){ localStorage.setItem(usersKey, JSON.stringify(list)); }
+        function render(){
+            var tbody = document.querySelector('#usersTable tbody');
+            var users = loadUsers();
+            tbody.innerHTML = '';
+            users.forEach(function(u, idx){
+                var tr = document.createElement('tr');
+                var courseStatuses = getCourseStatuses(u);
+                tr.innerHTML = '<td>'+u.username+'</td>'+
+                               '<td>'+u.password+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['math-est-1'])+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['math-est-2'])+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['english-est-1'])+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['biology-est-1'])+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['biology-est-2'])+'</td>'+
+                               '<td>'+getCourseStatusBadge(courseStatuses['chemistry-est-2'])+'</td>'+
+                               '<td><button class="btn btn-sm btn-outline-danger" data-del="'+idx+'">Delete</button></td>';
+                tbody.appendChild(tr);
+            });
+            updateUserSelects();
+            setupTableEventListeners(); // Re-setup event listeners after rendering
+        }
+        function setAdminLoggedIn(flag){ localStorage.setItem(adminKey, flag ? '1' : ''); }
+        function isAdmin(){ return localStorage.getItem(adminKey) === '1'; }
+        
+        // Course-specific activation functions
+        var COURSES = {
+            'math-est-1': 'Math Course EST 1',
+            'math-est-2': 'Math Course EST 2',
+            'english-est-1': 'English Course EST 1',
+            'biology-est-1': 'Biology Course EST 1',
+            'biology-est-2': 'Biology Course EST 2',
+            'chemistry-est-2': 'Chemistry Course EST 2'
+        };
+        
+        function getCourseStatuses(user) {
+            var statuses = {};
+            Object.keys(COURSES).forEach(function(courseId) {
+                statuses[courseId] = getCourseActivationStatus(user, courseId);
+            });
+            return statuses;
+        }
+        
+        function getCourseActivationStatus(user, courseId) {
+            if (!user.courseActivations || !user.courseActivations[courseId]) {
+                return { active: false, daysLeft: 0, expires: null };
+            }
+            var now = new Date();
+            var expires = new Date(user.courseActivations[courseId]);
+            var daysLeft = Math.ceil((expires - now) / (1000 * 60 * 60 * 24));
+            return { active: daysLeft > 0, daysLeft: daysLeft, expires: expires };
+        }
+        
+        function getCourseStatusBadge(status) {
+            if (status.active) {
+                return '<span class="badge badge-success" title="' + status.daysLeft + ' days left">Active</span>';
+            } else if (status.expires) {
+                return '<span class="badge badge-danger" title="Expired">Expired</span>';
+            } else {
+                return '<span class="badge badge-secondary">Inactive</span>';
+            }
+        }
+        
+        
+        function activateUserForCourse(username, courseId, days) {
+            var users = loadUsers();
+            var user = users.find(function(u) { return u.username === username; });
+            if (user) {
+                if (!user.courseActivations) {
+                    user.courseActivations = {};
+                }
+                var now = new Date();
+                var expires = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+                user.courseActivations[courseId] = expires.toISOString();
+                saveUsers(users);
+                return true;
+            }
+            return false;
+        }
+        
+        
+        function updateUserSelects() {
+            var select = document.getElementById('activateUser');
+            var users = loadUsers();
+            if (select) {
+                select.innerHTML = '<option value="">Choose a user...</option>';
+                users.forEach(function(user) {
+                    var option = document.createElement('option');
+                    option.value = user.username;
+                    option.textContent = user.username;
+                    select.appendChild(option);
+                });
+            }
+        }
+        
+        // Global function to check if user has access to a specific course
+        window.checkCourseAccess = function(username, courseId) {
+            var users = loadUsers();
+            var user = users.find(function(u) { return u.username === username; });
+            if (!user) return false;
+            return getCourseActivationStatus(user, courseId).active;
+        };
+        
+        // Global function to get user course activation info
+        window.getUserCourseActivationInfo = function(username, courseId) {
+            var users = loadUsers();
+            var user = users.find(function(u) { return u.username === username; });
+            if (!user) return null;
+            return getCourseActivationStatus(user, courseId);
+        };
+        
+        // Global function to get all course activations for a user
+        window.getUserAllCourseActivations = function(username) {
+            var users = loadUsers();
+            var user = users.find(function(u) { return u.username === username; });
+            if (!user) return null;
+            return getCourseStatuses(user);
+        };
+
+        function showPanel(){
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminPanel').style.display = '';
+            render();
+            setupTableEventListeners(); // Setup event listeners when panel is shown
+        }
+        function showLogin(){
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminLogin').style.display = '';
+        }
+
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            var u = document.getElementById('adminUser').value.trim();
+            var p = document.getElementById('adminPass').value.trim();
+            if(u === ADMIN_USER && p === ADMIN_PASS){
+                setAdminLoggedIn(true);
+                document.getElementById('adminLoginError').style.display = 'none';
+                showPanel();
+            } else {
+                var err = document.getElementById('adminLoginError');
+                err.textContent = 'Invalid admin credentials';
+                err.style.display = '';
+            }
+        });
+
+        document.getElementById('logoutAdmin').addEventListener('click', function(){
+            setAdminLoggedIn(false);
+            showLogin();
+        });
+
+        document.getElementById('userForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            var name = document.getElementById('uName').value.trim();
+            var pass = document.getElementById('uPass').value.trim();
+            var msg = document.getElementById('userFormMsg');
+            if(!name || !pass){ msg.textContent = 'Username and password required'; msg.style.display=''; return; }
+            var users = loadUsers();
+            var existing = users.find(function(u){ return u.username.toLowerCase() === name.toLowerCase(); });
+            if(existing){ existing.password = pass; }
+            else { users.push({username:name, password:pass}); }
+            saveUsers(users);
+            msg.style.display='none';
+            document.getElementById('uName').value='';
+            document.getElementById('uPass').value='';
+            render();
+        });
+
+        // Course-specific activation form
+        document.getElementById('courseActivationForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            var username = document.getElementById('activateUser').value.trim();
+            var courseId = document.getElementById('activateCourse').value.trim();
+            var days = parseInt(document.getElementById('activationDays').value);
+            var msg = document.getElementById('activationMsg');
+            
+            if(!username || !courseId || !days || days < 1){
+                msg.textContent = 'Please select a user, course, and enter valid days (1-365)';
+                msg.className = 'mt-2 alert alert-danger';
+                msg.style.display = '';
+                return;
+            }
+            
+            if(activateUserForCourse(username, courseId, days)){
+                var courseName = COURSES[courseId];
+                msg.innerHTML = '<div class="alert alert-success">User ' + username + ' activated for ' + courseName + ' (' + days + ' days)</div>';
+                msg.style.display = '';
+                document.getElementById('courseActivationForm').reset();
+                document.getElementById('activationDays').value = '30';
+                render();
+            } else {
+                msg.innerHTML = '<div class="alert alert-danger">User not found</div>';
+                msg.style.display = '';
+            }
+        });
+        
+
+        // Set up event delegation for the users table
+        function setupTableEventListeners() {
+            // Use document-level event delegation for better reliability
+            document.removeEventListener('click', handleTableClick);
+            document.addEventListener('click', handleTableClick);
+        }
+        
+        function handleTableClick(e) {
+            // Only handle clicks within the users table
+            if (!e.target.closest('#usersTable tbody')) {
+                return;
+            }
+            
+            var idx = e.target.getAttribute('data-del');
+            
+            if(idx !== null){
+                var users = loadUsers();
+                users.splice(parseInt(idx,10),1);
+                saveUsers(users);
+                render();
+            }
+        }
+
+        
+
+        if(isAdmin()) showPanel(); else showLogin();
+    })();
+    </script>
+</body>
+</html>
+
+        
+
+        function activateUserForCourse(username, courseId, days) {
+
+            var users = loadUsers();
+
+            var user = users.find(function(u) { return u.username === username; });
+
+            if (user) {
+
+                if (!user.courseActivations) {
+
+                    user.courseActivations = {};
+
+                }
+
+                var now = new Date();
+
+                var expires = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+
+                user.courseActivations[courseId] = expires.toISOString();
+
+                saveUsers(users);
+
+                return true;
+
+            }
+
+            return false;
+
+        }
+
+        
+
+        function activateUserForAllCourses(username, days) {
+
+            var users = loadUsers();
+
+            var user = users.find(function(u) { return u.username === username; });
+
+            if (user) {
+
+                if (!user.courseActivations) {
+
+                    user.courseActivations = {};
+
+                }
+
+                var now = new Date();
+
+                var expires = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+
+                Object.keys(COURSES).forEach(function(courseId) {
+
+                    user.courseActivations[courseId] = expires.toISOString();
+
+                });
+
+                saveUsers(users);
+
+                return true;
+
+            }
+
+            return false;
+
+        }
+
+        
+
+        function updateUserSelects() {
+
+            var selects = ['activateUser', 'bulkUser'];
+
+            var users = loadUsers();
+
+            selects.forEach(function(selectId) {
+
+                var select = document.getElementById(selectId);
+
+                if (select) {
+
+                    select.innerHTML = '<option value="">Choose a user...</option>';
+
+                    users.forEach(function(user) {
+
+                        var option = document.createElement('option');
+
+                        option.value = user.username;
+
+                        option.textContent = user.username;
+
+                        select.appendChild(option);
+
+                    });
+
+                }
+
+            });
+
+        }
+
+        
+
+        // Global function to check if user has access to a specific course
+
+        window.checkCourseAccess = function(username, courseId) {
+
+            var users = loadUsers();
+
+            var user = users.find(function(u) { return u.username === username; });
+
+            if (!user) return false;
+
+            return getCourseActivationStatus(user, courseId).active;
+
+        };
+
+        
+
+        // Global function to get user course activation info
+
+        window.getUserCourseActivationInfo = function(username, courseId) {
+
+            var users = loadUsers();
+
+            var user = users.find(function(u) { return u.username === username; });
+
+            if (!user) return null;
+
+            return getCourseActivationStatus(user, courseId);
+
+        };
+
+        
+
+        // Global function to get all course activations for a user
+
+        window.getUserAllCourseActivations = function(username) {
+
+            var users = loadUsers();
+
+            var user = users.find(function(u) { return u.username === username; });
+
+            if (!user) return null;
+
+            return getCourseStatuses(user);
+
+        };
+
+
+
+        function showPanel(){
+
+            document.getElementById('adminLogin').style.display = 'none';
+
+            document.getElementById('adminPanel').style.display = '';
+
+            render();
+
+            setupTableEventListeners(); // Setup event listeners when panel is shown
+
+        }
+
+        function showLogin(){
+
+            document.getElementById('adminPanel').style.display = 'none';
+
+            document.getElementById('adminLogin').style.display = '';
+
+        }
+
+
+
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e){
+
+            e.preventDefault();
+
+            var u = document.getElementById('adminUser').value.trim();
+
+            var p = document.getElementById('adminPass').value.trim();
+
+            if(u === ADMIN_USER && p === ADMIN_PASS){
+
+                setAdminLoggedIn(true);
+
+                document.getElementById('adminLoginError').style.display = 'none';
+
+                showPanel();
+
+            } else {
+
+                var err = document.getElementById('adminLoginError');
+
+                err.textContent = 'Invalid admin credentials';
+
+                err.style.display = '';
+
+            }
+
+        });
+
+
+
+        document.getElementById('logoutAdmin').addEventListener('click', function(){
+
+            setAdminLoggedIn(false);
+
+            showLogin();
+
+        });
+
+
+
+        document.getElementById('userForm').addEventListener('submit', function(e){
+
+            e.preventDefault();
+
+            var name = document.getElementById('uName').value.trim();
+
+            var pass = document.getElementById('uPass').value.trim();
+
+            var msg = document.getElementById('userFormMsg');
+
+            if(!name || !pass){ msg.textContent = 'Username and password required'; msg.style.display=''; return; }
+
+            var users = loadUsers();
+
+            var existing = users.find(function(u){ return u.username.toLowerCase() === name.toLowerCase(); });
+
+            if(existing){ existing.password = pass; }
+
+            else { users.push({username:name, password:pass}); }
+
+            saveUsers(users);
+
+            msg.style.display='none';
+
+            document.getElementById('uName').value='';
+
+            document.getElementById('uPass').value='';
+
+            render();
+
+        });
+
+
+
+        // Course-specific activation form
+
+        document.getElementById('courseActivationForm').addEventListener('submit', function(e){
+
+            e.preventDefault();
+
+            var username = document.getElementById('activateUser').value.trim();
+
+            var courseId = document.getElementById('activateCourse').value.trim();
+
+            var days = parseInt(document.getElementById('activationDays').value);
+
+            var msg = document.getElementById('activationMsg');
+
+            
+
+            if(!username || !courseId || !days || days < 1){
+
+                msg.textContent = 'Please select a user, course, and enter valid days (1-365)';
+
+                msg.className = 'mt-2 alert alert-danger';
+
+                msg.style.display = '';
+
+                return;
+
+            }
+
+            
+
+            if(activateUserForCourse(username, courseId, days)){
+
+                var courseName = COURSES[courseId];
+
+                msg.innerHTML = '<div class="alert alert-success">User ' + username + ' activated for ' + courseName + ' (' + days + ' days)</div>';
+
+                msg.style.display = '';
+
+                document.getElementById('courseActivationForm').reset();
+
+                document.getElementById('activationDays').value = '30';
+
+                render();
+
+            } else {
+
+                msg.innerHTML = '<div class="alert alert-danger">User not found</div>';
+
+                msg.style.display = '';
+
+            }
+
+        });
+
+        
+
+        // Bulk activation form
+
+        document.getElementById('bulkActivationForm').addEventListener('submit', function(e){
+
+            e.preventDefault();
+
+            var username = document.getElementById('bulkUser').value.trim();
+
+            var days = parseInt(document.getElementById('bulkDays').value);
+
+            var msg = document.getElementById('bulkActivationMsg');
+
+            
+
+            if(!username || !days || days < 1){
+
+                msg.innerHTML = '<div class="alert alert-danger">Please select a user and enter valid days (1-365)</div>';
+
+                msg.style.display = '';
+
+                return;
+
+            }
+
+            
+
+            var selectedCourses = [];
+
+            Object.keys(COURSES).forEach(function(courseId) {
+
+                var checkbox = document.getElementById('course-' + courseId.replace('-', '-'));
+
+                if (checkbox && checkbox.checked) {
+
+                    selectedCourses.push(courseId);
+
+                }
+
+            });
+
+            
+
+            if(selectedCourses.length === 0){
+
+                msg.innerHTML = '<div class="alert alert-warning">Please select at least one course</div>';
+
+                msg.style.display = '';
+
+                return;
+
+            }
+
+            
+
+            var successCount = 0;
+
+            selectedCourses.forEach(function(courseId) {
+
+                if(activateUserForCourse(username, courseId, days)){
+
+                    successCount++;
+
+                }
+
+            });
+
+            
+
+            if(successCount > 0){
+
+                msg.innerHTML = '<div class="alert alert-success">User ' + username + ' activated for ' + successCount + ' course(s) (' + days + ' days)</div>';
+
+                msg.style.display = '';
+
+                document.getElementById('bulkActivationForm').reset();
+
+                document.getElementById('bulkDays').value = '30';
+
+                deselectAllCourses();
+
+                render();
+
+            } else {
+
+                msg.innerHTML = '<div class="alert alert-danger">User not found</div>';
+
+                msg.style.display = '';
+
+            }
+
+        });
+
+
+
+        // Set up event delegation for the users table
+
+        function setupTableEventListeners() {
+
+            // Use document-level event delegation for better reliability
+
+            document.removeEventListener('click', handleTableClick);
+
+            document.addEventListener('click', handleTableClick);
+
+        }
+
+        
+
+        function handleTableClick(e) {
+
+            // Only handle clicks within the users table
+
+            if (!e.target.closest('#usersTable tbody')) {
+
+                return;
+
+            }
+
+            
+
+            var idx = e.target.getAttribute('data-del');
+
+            
+
+            if(idx !== null){
+
+                var users = loadUsers();
+
+                users.splice(parseInt(idx,10),1);
+
+                saveUsers(users);
+
+                render();
+
+            }
+
+        }
+
+
+
+        // Helper functions for bulk activation
+
+        window.activateAllCourses = function() {
+
+            var username = document.getElementById('activateUser').value.trim();
+
+            var days = parseInt(document.getElementById('activationDays').value);
+
+            var msg = document.getElementById('activationMsg');
+
+            
+
+            if(!username || !days || days < 1){
+
+                msg.innerHTML = '<div class="alert alert-danger">Please select a user and enter valid days (1-365)</div>';
+
+                msg.style.display = '';
+
+                return;
+
+            }
+
+            
+
+            if(activateUserForAllCourses(username, days)){
+
+                msg.innerHTML = '<div class="alert alert-success">User ' + username + ' activated for ALL courses (' + days + ' days)</div>';
+
+                msg.style.display = '';
+
+                document.getElementById('courseActivationForm').reset();
+
+                document.getElementById('activationDays').value = '30';
+
+                render();
+
+            } else {
+
+                msg.innerHTML = '<div class="alert alert-danger">User not found</div>';
+
+                msg.style.display = '';
+
+            }
+
+        };
+
+        
+
+        window.selectAllCourses = function() {
+
+            Object.keys(COURSES).forEach(function(courseId) {
+
+                var checkbox = document.getElementById('course-' + courseId.replace('-', '-'));
+
+                if (checkbox) checkbox.checked = true;
+
+            });
+
+        };
+
+        
+
+        window.deselectAllCourses = function() {
+
+            Object.keys(COURSES).forEach(function(courseId) {
+
+                var checkbox = document.getElementById('course-' + courseId.replace('-', '-'));
+
+                if (checkbox) checkbox.checked = false;
+
+            });
+
+        };
+
+        
+
+
+
+        // Video Management Functions
+        function setupVideoManagement() {
+            // Video management form submission
+            document.getElementById('videoManagementForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const courseId = document.getElementById('videoCourse').value;
+                const videoKey = document.getElementById('videoKey').value;
+                const videoUrl = document.getElementById('videoUrl').value;
+                const msg = document.getElementById('videoMsg');
+                
+                if (!courseId || !videoKey || !videoUrl) {
+                    msg.innerHTML = '<div class="alert alert-warning">Please fill in all fields</div>';
+                    msg.style.display = '';
+                    return;
+                }
+                
+                // Validate Google Drive URL format
+                if (!videoUrl.includes('drive.google.com/file/d/') || !videoUrl.includes('/preview')) {
+                    msg.innerHTML = '<div class="alert alert-warning">Please use a valid Google Drive preview URL</div>';
+                    msg.style.display = '';
+                    return;
+                }
+                
+                try {
+                    if (window.firebaseCourseAccess) {
+                        const success = await window.firebaseCourseAccess.updateSingleVideoUrl(courseId, videoKey, videoUrl);
+                        if (success) {
+                            msg.innerHTML = '<div class="alert alert-success">Video URL updated successfully!</div>';
+                            msg.style.display = '';
+                            document.getElementById('videoManagementForm').reset();
+                            // Refresh the video list if it's currently displayed
+                            if (document.getElementById('videoList').style.display !== 'none') {
+                                loadCourseVideos(courseId);
+                            }
+                        } else {
+                            msg.innerHTML = '<div class="alert alert-danger">Failed to update video URL</div>';
+                            msg.style.display = '';
+                        }
+                    } else {
+                        msg.innerHTML = '<div class="alert alert-danger">Firebase not available</div>';
+                        msg.style.display = '';
+                    }
+                } catch (error) {
+                    console.error('Error updating video:', error);
+                    msg.innerHTML = '<div class="alert alert-danger">Error updating video URL</div>';
+                    msg.style.display = '';
+                }
+            });
+            
+            // Load videos button
+            document.getElementById('loadVideosBtn').addEventListener('click', function() {
+                const courseId = document.getElementById('videoCourse').value;
+                if (courseId) {
+                    loadCourseVideos(courseId);
+                } else {
+                    alert('Please select a course first');
+                }
+            });
+        }
+        
+        async function loadCourseVideos(courseId) {
+            try {
+                if (window.firebaseCourseAccess) {
+                    const videoUrls = await window.firebaseCourseAccess.getVideoUrls(courseId);
+                    const courseMetadata = await window.firebaseCourseAccess.getCourseMetadata(courseId);
+                    
+                    // Update course name display
+                    document.getElementById('currentCourseName').textContent = courseMetadata.title;
+                    
+                    // Clear existing table rows
+                    const tbody = document.querySelector('#videosTable tbody');
+                    tbody.innerHTML = '';
+                    
+                    // Add video rows
+                    Object.entries(videoUrls).forEach(([key, url]) => {
+                        const row = tbody.insertRow();
+                        row.innerHTML = `
+                            <td>${key}</td>
+                            <td><a href="${url}" target="_blank" class="text-truncate d-inline-block" style="max-width: 300px;">${url}</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="editVideo('${key}', '${url}')">Edit</button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteVideo('${key}')">Delete</button>
+                            </td>
+                        `;
+                    });
+                    
+                    // Show the video list
+                    document.getElementById('videoList').style.display = 'block';
+                } else {
+                    alert('Firebase not available');
+                }
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                alert('Error loading videos');
+            }
+        }
+        
+        // Edit video function
+        window.editVideo = function(videoKey, currentUrl) {
+            document.getElementById('videoKey').value = videoKey;
+            document.getElementById('videoUrl').value = currentUrl;
+            document.getElementById('videoKey').readOnly = true; // Prevent changing the key
+        };
+        
+        // Delete video function
+        window.deleteVideo = async function(videoKey) {
+            if (!confirm('Are you sure you want to delete this video?')) return;
+            
+            const courseId = document.getElementById('videoCourse').value;
+            const msg = document.getElementById('videoMsg');
+            
+            try {
+                if (window.firebaseCourseAccess) {
+                    // Get current videos
+                    const videoUrls = await window.firebaseCourseAccess.getVideoUrls(courseId);
+                    // Remove the video
+                    delete videoUrls[videoKey];
+                    // Update the entire collection
+                    const success = await window.firebaseCourseAccess.updateVideoUrls(courseId, videoUrls);
+                    
+                    if (success) {
+                        msg.innerHTML = '<div class="alert alert-success">Video deleted successfully!</div>';
+                        msg.style.display = '';
+                        loadCourseVideos(courseId); // Refresh the list
+                    } else {
+                        msg.innerHTML = '<div class="alert alert-danger">Failed to delete video</div>';
+                        msg.style.display = '';
+                    }
+                }
+            } catch (error) {
+                console.error('Error deleting video:', error);
+                msg.innerHTML = '<div class="alert alert-danger">Error deleting video</div>';
+                msg.style.display = '';
+            }
+        };
+
+        // Initialize video management when admin panel is shown
+        const originalShowPanel = window.showPanel;
+        window.showPanel = function() {
+            originalShowPanel();
+            setupVideoManagement();
+        };
+
+        if(isAdmin()) showPanel(); else showLogin();
+
+    })();
+
+    </script>
+
+</body>
+
+</html>
+
+
