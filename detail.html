@@ -31,101 +31,12 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     
-    <!-- Moderate Inspection Protection CSS -->
-    <style>
-        /* Disable text selection on images and non-interactive elements */
-        img, .no-select {
-            -webkit-user-select: none !important;
-            -moz-user-select: none !important;
-            -ms-user-select: none !important;
-            user-select: none !important;
-            -webkit-user-drag: none !important;
-            -khtml-user-drag: none !important;
-            -moz-user-drag: none !important;
-            -o-user-drag: none !important;
-            user-drag: none !important;
-        }
-        
-        /* Allow normal interactions for buttons and inputs */
-        button, input, select, textarea, a, [onclick], [role="button"] {
-            pointer-events: auto !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
-        }
-        
-        /* Disable text highlighting on images only */
-        img::selection {
-            background: transparent !important;
-        }
-        
-        img::-moz-selection {
-            background: transparent !important;
-        }
-        
-        /* Hide scrollbars for cleaner look */
-        ::-webkit-scrollbar {
-            display: none !important;
-        }
-        
-        /* Allow normal touch interactions */
-        * {
-            touch-action: auto !important;
-        }
-    </style>
+    <!-- All inspection protection CSS has been removed for full functionality -->
     
     <!-- CryptoJS for AES encryption -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     
-    <!-- Moderate Inspection Protection Script -->
-    <script>
-    (function() {
-        'use strict';
-        
-        // Block right-click context menu (but allow on interactive elements)
-        document.addEventListener('contextmenu', function(e) {
-            // Allow right-click on input fields and buttons
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-                return true;
-            }
-            e.preventDefault();
-            return false;
-        });
-        
-        // Block only essential developer tools shortcuts
-        document.addEventListener('keydown', function(e) {
-            // F12 key
-            if (e.keyCode === 123) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl+Shift+I (Developer Tools)
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl+Shift+J (Console)
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl+U (View Source)
-            if (e.ctrlKey && e.keyCode === 85) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // Add warning message to console
-        setTimeout(function() {
-            console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
-            console.log('%cThis is a browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your account.', 'color: red; font-size: 16px;');
-            console.log('%cDo not paste any code here that you do not understand.', 'color: red; font-size: 16px;');
-        }, 1000);
-        
-    })();
-    </script>
+    <!-- All inspection protection scripts have been removed for full functionality -->
 </head>
 
 <body>
