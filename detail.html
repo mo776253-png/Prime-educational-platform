@@ -7,6 +7,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+    
+    <!-- Additional Security Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -23,6 +30,443 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Inspection Protection CSS -->
+    <style>
+        /* Disable text selection */
+        * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        
+        /* Disable image dragging */
+        img {
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+            user-drag: none !important;
+            pointer-events: none !important;
+        }
+        
+        /* Disable text highlighting */
+        ::selection {
+            background: transparent !important;
+        }
+        
+        ::-moz-selection {
+            background: transparent !important;
+        }
+        
+        /* Hide scrollbars for cleaner look */
+        ::-webkit-scrollbar {
+            display: none !important;
+        }
+        
+        /* Disable context menu on all elements */
+        * {
+            -webkit-context-menu: none !important;
+            -moz-context-menu: none !important;
+            context-menu: none !important;
+        }
+        
+        /* Prevent zoom on double tap */
+        * {
+            touch-action: manipulation !important;
+        }
+        
+        /* Disable image right-click context menu */
+        img {
+            -webkit-context-menu: none !important;
+            -moz-context-menu: none !important;
+            context-menu: none !important;
+        }
+        
+        /* Disable text selection on specific elements */
+        body, html, div, span, p, h1, h2, h3, h4, h5, h6, a, button, input, textarea {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        
+        /* Allow text selection only in input fields */
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+    </style>
+    
+    <!-- CryptoJS for AES encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <!-- ULTRA-AGGRESSIVE INSPECTION PROTECTION SCRIPT -->
+    <script>
+    (function() {
+        'use strict';
+        
+        // Block page completely when inspection detected
+        function blockPage() {
+            console.clear();
+            document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:99999;font-family:Arial,sans-serif;"><div style="text-align:center;"><h1 style="color:#ff0000;margin-bottom:20px;">ACCESS DENIED</h1><p style="font-size:18px;margin-bottom:10px;">Inspection detected!</p><p style="font-size:16px;color:#ccc;">This page is protected against all forms of inspection.</p><p style="font-size:14px;color:#888;margin-top:20px;">Please close any developer tools and refresh the page.</p></div></div>';
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Block right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        // Block ALL keyboard shortcuts that could be used for inspection
+        document.addEventListener('keydown', function(e) {
+            // F12 key
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+Shift+I (Developer Tools)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+Shift+J (Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+Shift+C (Element Inspector)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+U (View Source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+S (Save Page)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+A (Select All)
+            if (e.ctrlKey && e.keyCode === 65) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+Shift+K (Firefox Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 75) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Ctrl+Shift+E (Firefox Network)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 69) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Block all F-keys
+            if (e.keyCode >= 112 && e.keyCode <= 123) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Block all Ctrl+Shift combinations
+            if (e.ctrlKey && e.shiftKey) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+            // Block Ctrl+P (Print)
+            if (e.ctrlKey && e.keyCode === 80) {
+                e.preventDefault();
+                blockPage();
+                return false;
+            }
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        // Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        // Block copy, cut, paste
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        // Block print
+        window.addEventListener('beforeprint', function(e) {
+            e.preventDefault();
+            blockPage();
+            return false;
+        });
+        
+        // Block common inspection methods
+        (function() {
+            // Override console methods
+            var noop = function() { blockPage(); };
+            var methods = ['log', 'debug', 'info', 'warn', 'error', 'trace', 'dir', 'group', 'groupEnd', 'time', 'timeEnd', 'count', 'clear', 'table'];
+            methods.forEach(function(method) {
+                console[method] = noop;
+            });
+            
+            // Block common inspection properties
+            Object.defineProperty(window, 'console', {
+                get: function() {
+                    blockPage();
+                    return {
+                        log: noop,
+                        debug: noop,
+                        info: noop,
+                        warn: noop,
+                        error: noop,
+                        trace: noop,
+                        dir: noop,
+                        group: noop,
+                        groupEnd: noop,
+                        time: noop,
+                        timeEnd: noop,
+                        count: noop,
+                        clear: noop,
+                        table: noop
+                    };
+                },
+                set: function() { blockPage(); }
+            });
+        })();
+        
+        // Detect and block developer tools
+        var devtools = {
+            open: false,
+            orientation: null,
+            threshold: 160
+        };
+        
+        // Multiple detection methods
+        function detectDevTools() {
+            var widthThreshold = window.outerWidth - window.innerWidth > devtools.threshold;
+            var heightThreshold = window.outerHeight - window.innerHeight > devtools.threshold;
+            var orientation = widthThreshold ? 'vertical' : 'horizontal';
+            
+            if (widthThreshold || heightThreshold) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    devtools.orientation = orientation;
+                    blockPage();
+                }
+            } else {
+                devtools.open = false;
+            }
+        }
+        
+        // Run detection every 100ms for faster response
+        setInterval(detectDevTools, 100);
+        
+        // Additional detection using console.log override
+        var devtoolsOpen = false;
+        var element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                devtoolsOpen = true;
+                blockPage();
+                throw new Error('DevTools detected');
+            }
+        });
+        
+        // Console detection
+        var devtoolsDetected = false;
+        setInterval(function() {
+            if (devtoolsDetected) return;
+            
+            var before = new Date();
+            debugger;
+            var after = new Date();
+            
+            if (after - before > 100) {
+                devtoolsDetected = true;
+                blockPage();
+            }
+        }, 1000);
+        
+        // Block eval and Function
+        window.eval = function() {
+            blockPage();
+            throw new Error('Code execution blocked');
+        };
+        
+        window.Function = function() {
+            blockPage();
+            throw new Error('Function creation blocked');
+        };
+        
+        // Block common debugging properties
+        (function() {
+            var blockedProps = ['debugger', 'console', 'eval', 'Function'];
+            blockedProps.forEach(function(prop) {
+                try {
+                    Object.defineProperty(window, prop, {
+                        get: function() { blockPage(); return undefined; },
+                        set: function() { blockPage(); }
+                    });
+                } catch(e) {}
+            });
+        })();
+        
+        // Block source code access via URL
+        if (window.location.href.includes('view-source:') || window.location.href.includes('chrome://') || window.location.href.includes('about:')) {
+            blockPage();
+        }
+        
+        // Block common inspection URLs
+        var blockedUrls = ['view-source:', 'chrome://', 'about:', 'moz-extension:', 'chrome-extension:'];
+        blockedUrls.forEach(function(url) {
+            if (window.location.href.includes(url)) {
+                blockPage();
+            }
+        });
+        
+        // ULTRA-AGGRESSIVE CONTINUOUS PROTECTION
+        (function() {
+            // Multiple protection intervals that cannot be disabled
+            setInterval(function() {
+                // Re-apply all protection methods continuously
+                document.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    blockPage();
+                    return false;
+                });
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.keyCode === 85) || (e.ctrlKey && e.keyCode === 83) || (e.ctrlKey && e.keyCode === 65) || (e.ctrlKey && e.keyCode === 80)) {
+                        e.preventDefault();
+                        blockPage();
+                        return false;
+                    }
+                });
+                
+                document.addEventListener('selectstart', function(e) {
+                    e.preventDefault();
+                    blockPage();
+                    return false;
+                });
+                
+                document.addEventListener('dragstart', function(e) {
+                    e.preventDefault();
+                    blockPage();
+                    return false;
+                });
+                
+                // Re-block console access
+                var noop = function() { blockPage(); };
+                var methods = ['log', 'debug', 'info', 'warn', 'error', 'trace', 'dir', 'group', 'groupEnd', 'time', 'timeEnd', 'count', 'clear', 'table'];
+                methods.forEach(function(method) {
+                    try {
+                        console[method] = noop;
+                    } catch(e) {}
+                });
+                
+            }, 100); // Run every 100ms for maximum protection
+            
+            // Additional protection that runs every 50ms
+            setInterval(function() {
+                // Block all F-keys
+                document.addEventListener('keydown', function(e) {
+                    if (e.keyCode >= 112 && e.keyCode <= 123) {
+                        e.preventDefault();
+                        blockPage();
+                        return false;
+                    }
+                });
+                
+                // Block all Ctrl+Shift combinations
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.shiftKey) {
+                        e.preventDefault();
+                        blockPage();
+                        return false;
+                    }
+                });
+                
+                // Block right-click
+                document.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    blockPage();
+                    return false;
+                });
+                
+            }, 50); // Run every 50ms
+            
+            // Third protection layer that runs every 200ms
+            setInterval(function() {
+                // Re-apply console blocking
+                try {
+                    Object.defineProperty(window, 'console', {
+                        get: function() { blockPage(); return {}; },
+                        set: function() { blockPage(); }
+                    });
+                } catch(e) {}
+                
+                // Block eval and Function
+                try {
+                    window.eval = function() { blockPage(); throw new Error('Code execution blocked'); };
+                    window.Function = function() { blockPage(); throw new Error('Function creation blocked'); };
+                } catch(e) {}
+                
+            }, 200); // Run every 200ms
+            
+        })();
+        
+        // Add warning message to console
+        setTimeout(function() {
+            console.clear();
+            console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
+            console.log('%cThis is a browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your account.', 'color: red; font-size: 16px;');
+            console.log('%cDo not paste any code here that you do not understand.', 'color: red; font-size: 16px;');
+        }, 1000);
+        
+    })();
+    </script>
 </head>
 
 <body>
@@ -72,8 +516,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    <a href="admin.html" class="nav-item nav-link">Admin</a>
-                    <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#authModal">Login</button>
+                    <a href="course.html" class="nav-item nav-link">Courses</a>
                 </div>
             </div>
         </nav>
@@ -145,7 +588,8 @@
                         <h5 class="text-white py-3 px-4 m-0">Course Price: $199</h5>
                         <div class="py-3 px-4">
                             <a id="enroll-btn" class="btn btn-block btn-secondary py-3 px-5" href="" target="_blank" rel="noopener">Details</a>
-                            <button id="view-course-btn" class="btn btn-block btn-info py-3 px-5 mt-2" onclick="viewCourseAsUser()">View Course</button>
+                            <button id="activation-btn" class="btn btn-block btn-warning py-3 px-5 mt-2" data-toggle="modal" data-target="#activationModal">Activation Code</button>
+                            <button id="view-course-btn" class="btn btn-block btn-success py-3 px-5 mt-2" style="display:none;">View Course</button>
                         </div>
                     </div>
 
@@ -247,78 +691,40 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <!-- Anti-Debug Protection (Minimal) -->
+    <script src="js/anti-debug-minimal.js"></script>
     
-    <!-- Firebase Configuration and User Management -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-user-management.js"></script>
+    <!-- Dynamic Code Loading -->
+    <script src="js/codes.js"></script>
+    
+    <!-- Template Javascript (Protected Version) -->
+    <script src="js/main-protected.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Auth Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Activation Code Modal -->
+    <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
+                    <h5 class="modal-title">Enter Activation Code</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="authForm">
+                    <form id="activationForm">
                         <div class="form-group">
-                            <label for="authEmail">Username</label>
-                            <input type="text" class="form-control" id="authEmail" placeholder="Enter username">
+                            <label for="activationCode">Activation Code</label>
+                            <input type="text" class="form-control" id="activationCode" placeholder="Enter your activation code" required>
                         </div>
-                        <div class="form-group">
-                            <label for="authPassword">Password</label>
-                            <input type="password" class="form-control" id="authPassword" placeholder="Password">
-                        </div>
-                        <div id="authError" class="text-danger mb-2" style="display:none"></div>
-                        <button type="submit" class="btn btn-primary btn-block">Continue</button>
+                        <div id="activationError" class="text-danger mb-2" style="display:none"></div>
+                        <div id="activationSuccess" class="text-success mb-2" style="display:none"></div>
+                        <button type="submit" class="btn btn-warning btn-block">Activate Course</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Course Access Control -->
-    <script src="js/course-access.js"></script>
-    <script>
-        // Load admin functions for course access checking
-        function loadAdminFunctions() {
-            window.checkCourseAccess = function(username, courseId) {
-                var users = JSON.parse(localStorage.getItem('ptp_users') || '[]');
-                var user = users.find(function(u) { return u.username === username; });
-                if (!user || !user.courseActivations || !user.courseActivations[courseId]) return false;
-                var now = new Date();
-                var expires = new Date(user.courseActivations[courseId]);
-                return expires > now;
-            };
-            
-            window.getUserCourseActivationInfo = function(username, courseId) {
-                var users = JSON.parse(localStorage.getItem('ptp_users') || '[]');
-                var user = users.find(function(u) { return u.username === username; });
-                if (!user || !user.courseActivations || !user.courseActivations[courseId]) {
-                    return { active: false, daysLeft: 0, expires: null };
-                }
-                var now = new Date();
-                var expires = new Date(user.courseActivations[courseId]);
-                var daysLeft = Math.ceil((expires - now) / (1000 * 60 * 60 * 24));
-                return { active: daysLeft > 0, daysLeft: daysLeft, expires: expires };
-            };
-        }
-        
-        // Initialize course access control
-        loadAdminFunctions();
-        
-        // The viewCourseAsUser function is now handled by course-access.js
-    </script>
 </body>
 
 </html>

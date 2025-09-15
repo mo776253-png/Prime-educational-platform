@@ -71,10 +71,8 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    <a href="admin.html" class="nav-item nav-link">Admin</a>
                     <a href="course.html" class="nav-item nav-link">Courses</a>
                     <a href="detail4.html" class="nav-item nav-link">Back to Course Details</a>
-                    <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#authModal">Login</button>
                 </div>
             </div>
         </nav>
@@ -466,46 +464,9 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Firebase Configuration and Course Access -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-course-access.js"></script>
-    <script src="js/firebase-user-management.js"></script>
-
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <!-- Auth Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="authForm">
-                        <div class="form-group">
-                            <label for="authEmail">Username</label>
-                            <input type="text" class="form-control" id="authEmail" placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <label for="authPassword">Password</label>
-                            <input type="password" class="form-control" id="authPassword" placeholder="Password">
-                        </div>
-                        <div id="authError" class="text-danger mb-2" style="display:none"></div>
-                        <button type="submit" class="btn btn-primary btn-block">Continue</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

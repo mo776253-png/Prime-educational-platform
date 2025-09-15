@@ -23,6 +23,9 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- CryptoJS for AES encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 
 <body>
@@ -72,8 +75,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    <a href="admin.html" class="nav-item nav-link">Admin</a>
-                    <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#authModal">Login</button>
+                    <a href="course.html" class="nav-item nav-link">Courses</a>
                 </div>
             </div>
         </nav>
@@ -145,7 +147,8 @@
                         <h5 class="text-white py-3 px-4 m-0">Course Price: $199</h5>
                         <div class="py-3 px-4">
                             <a id="enroll-btn" class="btn btn-block btn-secondary py-3 px-5" href="" target="_blank" rel="noopener">Details</a>
-                            <button id="view-course-btn" class="btn btn-block btn-info py-3 px-5 mt-2" onclick="viewCourseAsUser()">View Course</button>
+                            <button id="activation-btn" class="btn btn-block btn-warning py-3 px-5 mt-2" data-toggle="modal" data-target="#activationModal">Activation Code</button>
+                            <button id="view-course-btn" class="btn btn-block btn-success py-3 px-5 mt-2" style="display:none;">View Course</button>
                         </div>
                     </div>
 
@@ -247,78 +250,40 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <!-- Anti-Debug Protection (Load First) -->
+    <script src="js/anti-debug.js"></script>
     
-    <!-- Firebase Configuration and User Management -->
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-user-management.js"></script>
+    <!-- Dynamic Code Loading -->
+    <script src="js/codes.js"></script>
+    
+    <!-- Template Javascript (Protected Version) -->
+    <script src="js/main-protected.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Auth Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Activation Code Modal -->
+    <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
+                    <h5 class="modal-title">Enter Activation Code</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="authForm">
+                    <form id="activationForm">
                         <div class="form-group">
-                            <label for="authEmail">Username</label>
-                            <input type="text" class="form-control" id="authEmail" placeholder="Enter username">
+                            <label for="activationCode">Activation Code</label>
+                            <input type="text" class="form-control" id="activationCode" placeholder="Enter your activation code" required>
                         </div>
-                        <div class="form-group">
-                            <label for="authPassword">Password</label>
-                            <input type="password" class="form-control" id="authPassword" placeholder="Password">
-                        </div>
-                        <div id="authError" class="text-danger mb-2" style="display:none"></div>
-                        <button type="submit" class="btn btn-primary btn-block">Continue</button>
+                        <div id="activationError" class="text-danger mb-2" style="display:none"></div>
+                        <div id="activationSuccess" class="text-success mb-2" style="display:none"></div>
+                        <button type="submit" class="btn btn-warning btn-block">Activate Course</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Course Access Control -->
-    <script src="js/course-access.js"></script>
-    <script>
-        // Load admin functions for course access checking
-        function loadAdminFunctions() {
-            window.checkCourseAccess = function(username, courseId) {
-                var users = JSON.parse(localStorage.getItem('ptp_users') || '[]');
-                var user = users.find(function(u) { return u.username === username; });
-                if (!user || !user.courseActivations || !user.courseActivations[courseId]) return false;
-                var now = new Date();
-                var expires = new Date(user.courseActivations[courseId]);
-                return expires > now;
-            };
-            
-            window.getUserCourseActivationInfo = function(username, courseId) {
-                var users = JSON.parse(localStorage.getItem('ptp_users') || '[]');
-                var user = users.find(function(u) { return u.username === username; });
-                if (!user || !user.courseActivations || !user.courseActivations[courseId]) {
-                    return { active: false, daysLeft: 0, expires: null };
-                }
-                var now = new Date();
-                var expires = new Date(user.courseActivations[courseId]);
-                var daysLeft = Math.ceil((expires - now) / (1000 * 60 * 60 * 24));
-                return { active: daysLeft > 0, daysLeft: daysLeft, expires: expires };
-            };
-        }
-        
-        // Initialize course access control
-        loadAdminFunctions();
-        
-        // The viewCourseAsUser function is now handled by course-access.js
-    </script>
 </body>
 
 </html>

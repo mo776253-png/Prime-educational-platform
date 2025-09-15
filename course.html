@@ -7,6 +7,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+    
+    <!-- Additional Security Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -23,6 +30,78 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Inspection Protection CSS -->
+    <style>
+        /* Disable text selection */
+        * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        
+        /* Disable image dragging */
+        img {
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+            user-drag: none !important;
+            pointer-events: none !important;
+        }
+        
+        /* Disable text highlighting */
+        ::selection {
+            background: transparent !important;
+        }
+        
+        ::-moz-selection {
+            background: transparent !important;
+        }
+        
+        /* Hide scrollbars for cleaner look */
+        ::-webkit-scrollbar {
+            display: none !important;
+        }
+        
+        /* Disable context menu on all elements */
+        * {
+            -webkit-context-menu: none !important;
+            -moz-context-menu: none !important;
+            context-menu: none !important;
+        }
+        
+        /* Prevent zoom on double tap */
+        * {
+            touch-action: manipulation !important;
+        }
+        
+        /* Disable image right-click context menu */
+        img {
+            -webkit-context-menu: none !important;
+            -moz-context-menu: none !important;
+            context-menu: none !important;
+        }
+        
+        /* Disable text selection on specific elements */
+        body, html, div, span, p, h1, h2, h3, h4, h5, h6, a, button, input, textarea {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        
+        /* Allow text selection only in input fields */
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -72,9 +151,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    <a href="admin.html" class="nav-item nav-link">Admin</a>
                     <a href="course.html" class="nav-item nav-link active">Courses</a>
-                    <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#authModal">Login</button>
                 </div>
             </div>
         </nav>
@@ -328,33 +405,6 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <!-- Auth Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="authForm">
-                        <div class="form-group">
-                            <label for="authEmail">Username</label>
-                            <input type="text" class="form-control" id="authEmail" placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <label for="authPassword">Password</label>
-                            <input type="password" class="form-control" id="authPassword" placeholder="Password">
-                        </div>
-                        <div id="authError" class="text-danger mb-2" style="display:none"></div>
-                        <button type="submit" class="btn btn-primary btn-block">Continue</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
