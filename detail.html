@@ -31,39 +31,36 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     
-    <!-- Inspection Protection CSS -->
+    <!-- Moderate Inspection Protection CSS -->
     <style>
-        /* Disable text selection */
-        * {
+        /* Disable text selection on images and non-interactive elements */
+        img, .no-select {
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
             -ms-user-select: none !important;
             user-select: none !important;
-            -webkit-touch-callout: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-        }
-        
-        /* Re-enable pointer events for interactive elements */
-        button, input, select, textarea, a, [onclick], [role="button"] {
-            pointer-events: auto !important;
-        }
-        
-        /* Disable image dragging */
-        img {
             -webkit-user-drag: none !important;
             -khtml-user-drag: none !important;
             -moz-user-drag: none !important;
             -o-user-drag: none !important;
             user-drag: none !important;
-            pointer-events: none !important;
         }
         
-        /* Disable text highlighting */
-        ::selection {
+        /* Allow normal interactions for buttons and inputs */
+        button, input, select, textarea, a, [onclick], [role="button"] {
+            pointer-events: auto !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        
+        /* Disable text highlighting on images only */
+        img::selection {
             background: transparent !important;
         }
         
-        ::-moz-selection {
+        img::-moz-selection {
             background: transparent !important;
         }
         
@@ -72,57 +69,31 @@
             display: none !important;
         }
         
-        /* Disable context menu on all elements */
+        /* Allow normal touch interactions */
         * {
-            -webkit-context-menu: none !important;
-            -moz-context-menu: none !important;
-            context-menu: none !important;
-        }
-        
-        /* Prevent zoom on double tap */
-        * {
-            touch-action: manipulation !important;
-        }
-        
-        /* Disable image right-click context menu */
-        img {
-            -webkit-context-menu: none !important;
-            -moz-context-menu: none !important;
-            context-menu: none !important;
-        }
-        
-        /* Disable text selection on specific elements */
-        body, html, div, span, p, h1, h2, h3, h4, h5, h6, a, button, input, textarea {
-            -webkit-user-select: none !important;
-            -moz-user-select: none !important;
-            -ms-user-select: none !important;
-            user-select: none !important;
-        }
-        
-        /* Allow text selection only in input fields */
-        input[type="text"], input[type="email"], input[type="password"], textarea {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
+            touch-action: auto !important;
         }
     </style>
     
     <!-- CryptoJS for AES encryption -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     
-    <!-- MODERATE INSPECTION PROTECTION SCRIPT -->
+    <!-- Moderate Inspection Protection Script -->
     <script>
     (function() {
         'use strict';
         
-        // Block right-click context menu
+        // Block right-click context menu (but allow on interactive elements)
         document.addEventListener('contextmenu', function(e) {
+            // Allow right-click on input fields and buttons
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+                return true;
+            }
             e.preventDefault();
             return false;
         });
         
-        // Block common developer tools shortcuts
+        // Block only essential developer tools shortcuts
         document.addEventListener('keydown', function(e) {
             // F12 key
             if (e.keyCode === 123) {
@@ -139,11 +110,6 @@
                 e.preventDefault();
                 return false;
             }
-            // Ctrl+Shift+C (Element Inspector)
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
-                e.preventDefault();
-                return false;
-            }
             // Ctrl+U (View Source)
             if (e.ctrlKey && e.keyCode === 85) {
                 e.preventDefault();
@@ -151,37 +117,8 @@
             }
         });
         
-        // Disable text selection
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // Disable drag and drop
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // Block copy, cut, paste
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        document.addEventListener('cut', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        document.addEventListener('paste', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
         // Add warning message to console
         setTimeout(function() {
-            console.clear();
             console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;');
             console.log('%cThis is a browser feature intended for developers. If someone told you to copy-paste something here, it is a scam and will give them access to your account.', 'color: red; font-size: 16px;');
             console.log('%cDo not paste any code here that you do not understand.', 'color: red; font-size: 16px;');
