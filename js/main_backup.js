@@ -1,8 +1,5 @@
 (function ($) {
     "use strict";
-    
-    // All inspection blocking code has been removed for full functionality
-    
     // Set Details button link on course detail page based on ?course= param
     $(document).ready(function () {
         var enrollBtn = document.getElementById('enroll-btn');
@@ -52,7 +49,7 @@
             // 2. INCREMENT the ACTIVATION_CODE_VERSION (e.g., "1.0.1", "1.1.0", "2.0.0")
             // 3. This will expire ALL existing user sessions
             // ========================================
-            var ACTIVATION_CODE_VERSION = "1.0.1";
+            var ACTIVATION_CODE_VERSION = "1.0.0";
             
             // AES Encryption Key (keep this secret!)
             var AES_KEY = "Edukate2024SecretKey1234567890123456"; // 32 characters for AES-256
@@ -91,22 +88,33 @@
                 }
             }
             
-            // Obfuscated activation codes - much harder to find and read
-            var _0x1a2b = ['math-est-1', 'math-est-2', 'english-est-1', 'biology-est-1', 'biology-est-2', 'chemistry-est-2'];
-            var _0x3c4d = ['MATH7X9K2P4Q', 'EST1M3TH5X7', 'ALG3BR4X9Y2', 'CALC8U1S3V5', 'GEOM6W4E7R9', 'TRIG2A5S8D1', 'STAT4F7G0H3', 'PROB6J9K2L5', 'ANAL8M1N4O7', 'DIFF0P3Q6R9'];
-            var _0x5e6f = ['MATH9Y2Z5A8', 'EST2B4C7D0', 'ADV3E6F9G2', 'CALC5H8I1J4', 'LINE7K0L3M6', 'MATR9N2O5P8', 'VECT1Q4R7S0', 'LIMI3T6U9V2', 'DERI5W8X1Y4', 'INTE7Z0A3B6'];
-            var _0x7g8h = ['ENG9C2D5E8', 'EST1F4G7H0', 'LITE3I6J9K2', 'GRAM5L8M1N4', 'VOCA7O0P3Q6', 'READ9R2S5T8', 'WRIT1U4V7W0', 'COMP3X6Y9Z2', 'ANAL5A8B1C4', 'ESSA7D0E3F6'];
-            var _0x9i0j = ['BIO9G2H5I8', 'EST1J4K7L0', 'CELL3M6N9O2', 'DNA5P8Q1R4', 'GENE7S0T3U6', 'EVOL9V2W5X8', 'ECOL1Y4Z7A0', 'ANAT3B6C9D2', 'PHYS5E8F1G4', 'MOLC7H0I3J6'];
-            var _0x1k2l = ['BIO9K2L5M8', 'EST2N4O7P0', 'ADV3Q6R9S2', 'MICR5T8U1V4', 'IMMU7W0X3Y6', 'NEUR9Z2A5B8', 'ENDO1C4D7E0', 'REPR3F6G9H2', 'DEVE5I8J1K4', 'PHYS7L0M3N6'];
-            var _0x3m4n = ['CHEM9O2P5Q8', 'EST2R4S7T0', 'ADV3U6V9W2', 'ORGA5X8Y1Z4', 'INOR7A0B3C6', 'PHYS9D2E5F8', 'ANAL1G4H7I0', 'THER3J6K9L2', 'KINE5M8N1O4', 'ELEC7P0Q3R6'];
-
-            var validCodes = {};
-            validCodes[_0x1a2b[0]] = _0x3c4d;
-            validCodes[_0x1a2b[1]] = _0x5e6f;
-            validCodes[_0x1a2b[2]] = _0x7g8h;
-            validCodes[_0x1a2b[3]] = _0x9i0j;
-            validCodes[_0x1a2b[4]] = _0x1k2l;
-            validCodes[_0x1a2b[5]] = _0x3m4n;
+            // Define valid activation codes for each course (10 original codes each)
+            var validCodes = {
+                'math-est-1': [
+                    'MATH7X9K2P4Q', 'EST1M3TH5X7', 'ALG3BR4X9Y2', 'CALC8U1S3V5', 'GEOM6W4E7R9',
+                    'TRIG2A5S8D1', 'STAT4F7G0H3', 'PROB6J9K2L5', 'ANAL8M1N4O7', 'DIFF0P3Q6R9'
+                ],
+                'math-est-2': [
+                    'MATH9Y2Z5A8', 'EST2B4C7D0', 'ADV3E6F9G2', 'CALC5H8I1J4', 'LINE7K0L3M6',
+                    'MATR9N2O5P8', 'VECT1Q4R7S0', 'LIMI3T6U9V2', 'DERI5W8X1Y4', 'INTE7Z0A3B6'
+                ],
+                'english-est-1': [
+                    'ENG9C2D5E8', 'EST1F4G7H0', 'LITE3I6J9K2', 'GRAM5L8M1N4', 'VOCA7O0P3Q6',
+                    'READ9R2S5T8', 'WRIT1U4V7W0', 'COMP3X6Y9Z2', 'ANAL5A8B1C4', 'ESSA7D0E3F6'
+                ],
+                'biology-est-1': [
+                    'BIO9G2H5I8', 'EST1J4K7L0', 'CELL3M6N9O2', 'DNA5P8Q1R4', 'GENE7S0T3U6',
+                    'EVOL9V2W5X8', 'ECOL1Y4Z7A0', 'ANAT3B6C9D2', 'PHYS5E8F1G4', 'MOLC7H0I3J6'
+                ],
+                'biology-est-2': [
+                    'BIO9K2L5M8', 'EST2N4O7P0', 'ADV3Q6R9S2', 'MICR5T8U1V4', 'IMMU7W0X3Y6',
+                    'NEUR9Z2A5B8', 'ENDO1C4D7E0', 'REPR3F6G9H2', 'DEVE5I8J1K4', 'PHYS7L0M3N6'
+                ],
+                'chemistry-est-2': [
+                    'CHEM9O2P5Q8', 'EST2R4S7T0', 'ADV3U6V9W2', 'ORGA5X8Y1Z4', 'INOR7A0B3C6',
+                    'PHYS9D2E5F8', 'ANAL1G4H7I0', 'THER3J6K9L2', 'KINE5M8N1O4', 'ELEC7P0Q3R6'
+                ]
+            };
 
             // Get current course ID from URL or page
             function getCurrentCourseId() {
@@ -214,8 +222,20 @@
                     return;
                 }
                 
-                // Check if the entered code matches any valid original code
-                var isValidCode = validCodesForCourse.includes(activationCode);
+                // Encrypt the entered code and check if it matches any valid encrypted code
+                var encryptedInputCode = encryptAES(activationCode, AES_KEY);
+                var isValidCode = false;
+                
+                if (encryptedInputCode) {
+                    // Check against all valid codes (encrypt each one and compare)
+                    for (var i = 0; i < validCodesForCourse.length; i++) {
+                        var encryptedValidCode = encryptAES(validCodesForCourse[i], AES_KEY);
+                        if (encryptedInputCode === encryptedValidCode) {
+                            isValidCode = true;
+                            break;
+                        }
+                    }
+                }
                 
                 if (isValidCode) {
                     // Valid code - show success message
@@ -225,7 +245,7 @@
                     var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
                     activatedCourses[courseId] = {
                         activated: true,
-                        code: activationCode, // Store original readable version
+                        code: encryptedInputCode, // Store encrypted version
                         version: ACTIVATION_CODE_VERSION,
                         activatedAt: new Date().toISOString()
                     };
@@ -238,8 +258,6 @@
                     setTimeout(function() {
                         $('#activationModal').modal('hide');
                     }, 1500);
-                    
-                    // Activation successful - no additional protection needed
                     
                 } else {
                     // Invalid code
@@ -261,7 +279,6 @@
                 
                 var contentUrl = courseContentMapping[courseId];
                 if (contentUrl) {
-                    // Navigate to course content page
                     window.location.href = contentUrl;
                 } else {
                     alert('Course content not available yet.');
@@ -287,8 +304,6 @@
         
         // Initialize activation code functionality
         initializeActivationCode();
-        
-        // Removed final protection layer that was blocking normal functionality
 
     });
     // Dropdown on mouse hover
