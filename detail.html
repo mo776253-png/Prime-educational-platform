@@ -348,7 +348,7 @@
                     if (validCodes.includes(activationCode)) {
                         // Valid code
                         if (successDiv) {
-                            successDiv.textContent = 'Activation successful! Course unlocked.';
+                            successDiv.textContent = 'Activation successful! Redirecting to course content...';
                             successDiv.style.display = 'block';
                         }
                         
@@ -362,20 +362,36 @@
                         };
                         localStorage.setItem('activatedCourses', JSON.stringify(activatedCourses));
                         
-                        // Update button visibility immediately
-                        updateButtonVisibility(courseId);
+                        // Redirect to course content immediately
+                        var courseContentMapping = {
+                            'math-est-1': 'course-content-math-est-1.html',
+                            'math-est-2': 'course-content-math-est-2.html',
+                            'english-est-1': 'course-content-english-est-1.html',
+                            'biology-est-1': 'course-content-biology-est-1.html',
+                            'biology-est-2': 'course-content-biology-est-2.html',
+                            'chemistry-est-2': 'course-content-chemistry-est-2.html'
+                        };
                         
-                        // Close modal after 1.5 seconds
-                        setTimeout(function() {
-                            var modal = document.getElementById('activationModal');
-                            if (modal) {
-                                modal.style.display = 'none';
-                                modal.classList.remove('show');
-                                document.body.classList.remove('modal-open');
-                                var backdrop = document.getElementById('modal-backdrop');
-                                if (backdrop) backdrop.remove();
-                            }
-                        }, 1500);
+                        var contentUrl = courseContentMapping[courseId];
+                        if (contentUrl) {
+                            // Redirect after 1 second to show success message
+                            setTimeout(function() {
+                                window.location.href = contentUrl;
+                            }, 1000);
+                        } else {
+                            // Fallback if no content URL found
+                            setTimeout(function() {
+                                var modal = document.getElementById('activationModal');
+                                if (modal) {
+                                    modal.style.display = 'none';
+                                    modal.classList.remove('show');
+                                    document.body.classList.remove('modal-open');
+                                    var backdrop = document.getElementById('modal-backdrop');
+                                    if (backdrop) backdrop.remove();
+                                }
+                                updateButtonVisibility(courseId);
+                            }, 1500);
+                        }
                         
                     } else {
                         // Invalid code
