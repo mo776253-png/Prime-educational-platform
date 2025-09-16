@@ -2,7 +2,7 @@
 (function() {
     'use strict';
     
-    var ACTIVATION_CODE_VERSION = "1.0.1";
+    var ACTIVATION_CODE_VERSION = "1.0.0";
     var AES_KEY = "Edukate2024SecretKey1234567890123456";
     
     // Wait for codes to load
