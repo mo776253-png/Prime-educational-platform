@@ -201,6 +201,9 @@
         
         // Wait for DOM to load
         document.addEventListener('DOMContentLoaded', function() {
+            // Current activation version - CHANGE THIS TO EXPIRE ALL SESSIONS
+            var ACTIVATION_CODE_VERSION = "1.0.4";
+            
             // Get current course ID
             function getCurrentCourseId() {
                 var currentPage = window.location.pathname.split('/').pop();
@@ -213,6 +216,57 @@
                     'detail6.html': 'chemistry-est-2'
                 };
                 return courseMapping[currentPage] || 'math-est-1';
+            }
+            
+            // Check if course is activated with current version
+            function isCourseActivated(courseId) {
+                var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
+                var courseData = activatedCourses[courseId];
+                
+                if (!courseData || !courseData.activated) {
+                    return false;
+                }
+                
+                // Check if the activation was done with the current version
+                if (courseData.version !== ACTIVATION_CODE_VERSION) {
+                    return false; // Version mismatch - session expired
+                }
+                
+                return true;
+            }
+            
+            // Clear expired activations (when version changes)
+            function clearExpiredActivations() {
+                var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
+                var hasExpired = false;
+                
+                for (var courseId in activatedCourses) {
+                    if (activatedCourses[courseId].version !== ACTIVATION_CODE_VERSION) {
+                        delete activatedCourses[courseId];
+                        hasExpired = true;
+                    }
+                }
+                
+                if (hasExpired) {
+                    localStorage.setItem('activatedCourses', JSON.stringify(activatedCourses));
+                    showSessionExpiredNotification();
+                }
+            }
+            
+            // Show notification when sessions expire
+            function showSessionExpiredNotification() {
+                var notification = document.createElement('div');
+                notification.className = 'alert alert-warning alert-dismissible fade show';
+                notification.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
+                notification.innerHTML = '<strong>Session Expired!</strong><br>Activation codes have been updated. Please re-enter your activation code to continue.<button type="button" class="close" onclick="this.parentElement.remove()"><span>&times;</span></button>';
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 10 seconds
+                setTimeout(function() {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 10000);
             }
             
             // Details button handler
@@ -298,24 +352,18 @@
                             successDiv.style.display = 'block';
                         }
                         
-                        // Store activation
+                        // Store activation with current version
                         var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
                         activatedCourses[courseId] = {
                             activated: true,
                             code: activationCode,
-                            version: '1.0.1',
+                            version: ACTIVATION_CODE_VERSION,
                             activatedAt: new Date().toISOString()
                         };
                         localStorage.setItem('activatedCourses', JSON.stringify(activatedCourses));
                         
-                        // Update buttons
-                        var enrollBtn = document.getElementById('enroll-btn');
-                        var activationBtn = document.getElementById('activation-btn');
-                        var viewCourseBtn = document.getElementById('view-course-btn');
-                        
-                        if (enrollBtn) enrollBtn.style.display = 'none';
-                        if (activationBtn) activationBtn.style.display = 'none';
-                        if (viewCourseBtn) viewCourseBtn.style.display = 'block';
+                        // Update button visibility immediately
+                        updateButtonVisibility(courseId);
                         
                         // Close modal after 1.5 seconds
                         setTimeout(function() {
@@ -363,21 +411,33 @@
                 });
             }
             
-            // Check if course is already activated
+            // Initialize button visibility and check for expired sessions
             var courseId = getCurrentCourseId();
-            var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
-            var courseData = activatedCourses[courseId];
             
-            if (courseData && courseData.activated && courseData.version === '1.0.1') {
-                // Course is activated - show View Course button
+            // Check for expired sessions first
+            clearExpiredActivations();
+            
+            // Update button visibility based on activation status
+            function updateButtonVisibility(courseId) {
                 var enrollBtn = document.getElementById('enroll-btn');
                 var activationBtn = document.getElementById('activation-btn');
                 var viewCourseBtn = document.getElementById('view-course-btn');
                 
-                if (enrollBtn) enrollBtn.style.display = 'none';
-                if (activationBtn) activationBtn.style.display = 'none';
-                if (viewCourseBtn) viewCourseBtn.style.display = 'block';
+                if (isCourseActivated(courseId)) {
+                    // Course is activated - hide Details and Activation Code, show View Course
+                    if (enrollBtn) enrollBtn.style.display = 'none';
+                    if (activationBtn) activationBtn.style.display = 'none';
+                    if (viewCourseBtn) viewCourseBtn.style.display = 'block';
+                } else {
+                    // Course not activated - show Details and Activation Code, hide View Course
+                    if (enrollBtn) enrollBtn.style.display = 'block';
+                    if (activationBtn) activationBtn.style.display = 'block';
+                    if (viewCourseBtn) viewCourseBtn.style.display = 'none';
+                }
             }
+            
+            // Update button visibility
+            updateButtonVisibility(courseId);
         });
     </script>
 
