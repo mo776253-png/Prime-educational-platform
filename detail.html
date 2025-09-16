@@ -187,14 +187,199 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Simple Protection -->
-    <script src="js/simple-protection.js"></script>
-    
-    <!-- Dynamic Code Loading -->
-    <script src="js/codes.js"></script>
-    
-    <!-- Template Javascript (Protected Version) -->
-    <script src="js/main-protected.js"></script>
+    <!-- Inline JavaScript for Button Functionality -->
+    <script>
+        // Activation codes
+        window.activationCodes = {
+            'math-est-1': ['MATH7X9K2P4Q', 'EST1M3TH5X7', 'ALG3BR4X9Y2', 'CALC8U1S3V5', 'GEOM6W4E7R9', 'TRIG2A5S8D1', 'STAT4F7G0H3', 'PROB6J9K2L5', 'ANAL8M1N4O7', 'DIFF0P3Q6R9'],
+            'math-est-2': ['MATH9Y2Z5A8', 'EST2B4C7D0', 'ADV3E6F9G2', 'CALC5H8I1J4', 'LINE7K0L3M6', 'MATR9N2O5P8', 'VECT1Q4R7S0', 'LIMI3T6U9V2', 'DERI5W8X1Y4', 'INTE7Z0A3B6'],
+            'english-est-1': ['ENG9C2D5E8', 'EST1F4G7H0', 'LITE3I6J9K2', 'GRAM5L8M1N4', 'VOCA7O0P3Q6', 'READ9R2S5T8', 'WRIT1U4V7W0', 'COMP3X6Y9Z2', 'ANAL5A8B1C4', 'ESSA7D0E3F6'],
+            'biology-est-1': ['BIO9G2H5I8', 'EST1J4K7L0', 'CELL3M6N9O2', 'DNA5P8Q1R4', 'GENE7S0T3U6', 'EVOL9V2W5X8', 'ECOL1Y4Z7A0', 'ANAT3B6C9D2', 'PHYS5E8F1G4', 'MOLC7H0I3J6'],
+            'biology-est-2': ['BIO9K2L5M8', 'EST2N4O7P0', 'ADV3Q6R9S2', 'MICR5T8U1V4', 'IMMU7W0X3Y6', 'NEUR9Z2A5B8', 'ENDO1C4D7E0', 'REPR3F6G9H2', 'DEVE5I8J1K4', 'PHYS7L0M3N6'],
+            'chemistry-est-2': ['CHEM9O2P5Q8', 'EST2R4S7T0', 'ADV3U6V9W2', 'ORGA5X8Y1Z4', 'INOR7A0B3C6', 'PHYS9D2E5F8', 'ANAL1G4H7I0', 'THER3J6K9L2', 'KINE5M8N1O4', 'ELEC7P0Q3R6']
+        };
+        
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current course ID
+            function getCurrentCourseId() {
+                var currentPage = window.location.pathname.split('/').pop();
+                var courseMapping = {
+                    'detail.html': 'math-est-1',
+                    'detail2.html': 'math-est-2',
+                    'detail3.html': 'english-est-1',
+                    'detail4.html': 'biology-est-1',
+                    'detail5.html': 'biology-est-2',
+                    'detail6.html': 'chemistry-est-2'
+                };
+                return courseMapping[currentPage] || 'math-est-1';
+            }
+            
+            // Details button handler
+            var detailsBtn = document.getElementById('enroll-btn');
+            if (detailsBtn) {
+                detailsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var href = this.getAttribute('href');
+                    if (!href || href === '#' || href === '') {
+                        href = 'https://docs.google.com/forms/d/e/1FAIpQLSeO6FMQyeVrbVhYPBFhWqPBFjoQSpNeBC6p05BM1_A8sCCKrQ/viewform?usp=dialog';
+                    }
+                    window.open(href, '_blank', 'noopener');
+                });
+            }
+            
+            // Activation button handler
+            var activationBtn = document.getElementById('activation-btn');
+            if (activationBtn) {
+                activationBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var modal = document.getElementById('activationModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                        modal.classList.add('show');
+                        document.body.classList.add('modal-open');
+                        
+                        // Add backdrop
+                        var backdrop = document.createElement('div');
+                        backdrop.className = 'modal-backdrop fade show';
+                        backdrop.id = 'modal-backdrop';
+                        document.body.appendChild(backdrop);
+                        
+                        // Close handlers
+                        backdrop.addEventListener('click', function() {
+                            modal.style.display = 'none';
+                            modal.classList.remove('show');
+                            document.body.classList.remove('modal-open');
+                            backdrop.remove();
+                        });
+                        
+                        var closeBtn = modal.querySelector('.close');
+                        if (closeBtn) {
+                            closeBtn.addEventListener('click', function() {
+                                modal.style.display = 'none';
+                                modal.classList.remove('show');
+                                document.body.classList.remove('modal-open');
+                                backdrop.remove();
+                            });
+                        }
+                    }
+                });
+            }
+            
+            // Activation form handler
+            var activationForm = document.getElementById('activationForm');
+            if (activationForm) {
+                activationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    var activationCode = document.getElementById('activationCode').value.trim().toUpperCase();
+                    var courseId = getCurrentCourseId();
+                    var validCodes = window.activationCodes[courseId] || [];
+                    
+                    var errorDiv = document.getElementById('activationError');
+                    var successDiv = document.getElementById('activationSuccess');
+                    
+                    // Hide previous messages
+                    if (errorDiv) errorDiv.style.display = 'none';
+                    if (successDiv) successDiv.style.display = 'none';
+                    
+                    if (!activationCode) {
+                        if (errorDiv) {
+                            errorDiv.textContent = 'Please enter an activation code.';
+                            errorDiv.style.display = 'block';
+                        }
+                        return;
+                    }
+                    
+                    if (validCodes.includes(activationCode)) {
+                        // Valid code
+                        if (successDiv) {
+                            successDiv.textContent = 'Activation successful! Course unlocked.';
+                            successDiv.style.display = 'block';
+                        }
+                        
+                        // Store activation
+                        var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
+                        activatedCourses[courseId] = {
+                            activated: true,
+                            code: activationCode,
+                            version: '1.0.1',
+                            activatedAt: new Date().toISOString()
+                        };
+                        localStorage.setItem('activatedCourses', JSON.stringify(activatedCourses));
+                        
+                        // Update buttons
+                        var enrollBtn = document.getElementById('enroll-btn');
+                        var activationBtn = document.getElementById('activation-btn');
+                        var viewCourseBtn = document.getElementById('view-course-btn');
+                        
+                        if (enrollBtn) enrollBtn.style.display = 'none';
+                        if (activationBtn) activationBtn.style.display = 'none';
+                        if (viewCourseBtn) viewCourseBtn.style.display = 'block';
+                        
+                        // Close modal after 1.5 seconds
+                        setTimeout(function() {
+                            var modal = document.getElementById('activationModal');
+                            if (modal) {
+                                modal.style.display = 'none';
+                                modal.classList.remove('show');
+                                document.body.classList.remove('modal-open');
+                                var backdrop = document.getElementById('modal-backdrop');
+                                if (backdrop) backdrop.remove();
+                            }
+                        }, 1500);
+                        
+                    } else {
+                        // Invalid code
+                        if (errorDiv) {
+                            errorDiv.textContent = 'Invalid activation code. Please try again.';
+                            errorDiv.style.display = 'block';
+                        }
+                        document.getElementById('activationCode').value = '';
+                    }
+                });
+            }
+            
+            // View course button handler
+            var viewCourseBtn = document.getElementById('view-course-btn');
+            if (viewCourseBtn) {
+                viewCourseBtn.addEventListener('click', function() {
+                    var courseId = getCurrentCourseId();
+                    var courseContentMapping = {
+                        'math-est-1': 'course-content-math-est-1.html',
+                        'math-est-2': 'course-content-math-est-2.html',
+                        'english-est-1': 'course-content-english-est-1.html',
+                        'biology-est-1': 'course-content-biology-est-1.html',
+                        'biology-est-2': 'course-content-biology-est-2.html',
+                        'chemistry-est-2': 'course-content-chemistry-est-2.html'
+                    };
+                    
+                    var contentUrl = courseContentMapping[courseId];
+                    if (contentUrl) {
+                        window.location.href = contentUrl;
+                    } else {
+                        alert('Course content not available yet.');
+                    }
+                });
+            }
+            
+            // Check if course is already activated
+            var courseId = getCurrentCourseId();
+            var activatedCourses = JSON.parse(localStorage.getItem('activatedCourses') || '{}');
+            var courseData = activatedCourses[courseId];
+            
+            if (courseData && courseData.activated && courseData.version === '1.0.1') {
+                // Course is activated - show View Course button
+                var enrollBtn = document.getElementById('enroll-btn');
+                var activationBtn = document.getElementById('activation-btn');
+                var viewCourseBtn = document.getElementById('view-course-btn');
+                
+                if (enrollBtn) enrollBtn.style.display = 'none';
+                if (activationBtn) activationBtn.style.display = 'none';
+                if (viewCourseBtn) viewCourseBtn.style.display = 'block';
+            }
+        });
+    </script>
 
     <!-- Activation Code Modal -->
     <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-hidden="true">
