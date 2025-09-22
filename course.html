@@ -31,6 +31,109 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     
+    <!-- Enhanced Mobile-Responsive Styling -->
+    <style>
+        /* Mobile Navigation Enhancements */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .navbar-brand span {
+                font-size: 16px !important;
+                line-height: 1.2 !important;
+                margin-left: 8px !important;
+            }
+            
+            .navbar-brand img {
+                height: 40px !important;
+                width: 40px !important;
+                flex-shrink: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand span {
+                font-size: 14px !important;
+                line-height: 1.1 !important;
+            }
+            
+            .navbar-brand img {
+                height: 36px !important;
+                width: 36px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-brand span {
+                font-size: 12px !important;
+                line-height: 1 !important;
+            }
+            
+            .navbar-brand img {
+                height: 32px !important;
+                width: 32px !important;
+            }
+        }
+        
+        /* Additional Mobile Navbar Fixes */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 1rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 60px);
+            }
+            
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 0.4rem 0.8rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 50px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.3rem 0.6rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 45px);
+            }
+            
+            .navbar-brand span {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+        }
+        
+        /* Ensure navbar doesn't overflow */
+        .navbar-brand {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-brand {
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
+            }
+        }
+    </style>
+    
     <!-- Inspection Protection CSS -->
     <style>
         /* Disable text selection */
@@ -141,8 +244,8 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
-            <a href="index.html" class="navbar-brand ml-lg-3 d-flex align-items-center">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-3 px-3 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
                 <img src="img/prime-team-logo.png" alt="Prime Team Platform" class="mr-2" style="height: 64px; width: 64px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
                 <span class="text-primary font-weight-bold" style="font-family: 'Jost', sans-serif; font-size: 28px; text-transform: uppercase; line-height: 1;">Prime Team Platform</span>
             </a>
@@ -164,7 +267,7 @@
         <div class="container text-center py-5">
             <h1 class="text-white display-1">Courses</h1>
             <div class="d-inline-flex text-white mb-5">
-                <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
                 <i class="fa fa-angle-double-right pt-1 px-3"></i>
                 <p class="m-0 text-uppercase">Courses</p>
             </div>
