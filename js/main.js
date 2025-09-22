@@ -52,7 +52,7 @@
             // 2. INCREMENT the ACTIVATION_CODE_VERSION (e.g., "1.0.1", "1.1.0", "2.0.0")
             // 3. This will expire ALL existing user sessions
             // ========================================
-            var ACTIVATION_CODE_VERSION = "1.0.3";
+            var ACTIVATION_CODE_VERSION = "1.0.4";
             
             // AES Encryption Key (keep this secret!)
             var AES_KEY = "Edukate2024SecretKey1234567890123456"; // 32 characters for AES-256
