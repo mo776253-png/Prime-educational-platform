@@ -23,6 +23,162 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Enhanced Mobile-Responsive Styling -->
+    <style>
+        /* Mobile Navigation Enhancements */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .navbar-brand span {
+                font-size: 16px !important;
+                line-height: 1.2 !important;
+                margin-left: 8px !important;
+            }
+            
+            .navbar-brand img {
+                height: 40px !important;
+                width: 40px !important;
+                flex-shrink: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand span {
+                font-size: 14px !important;
+                line-height: 1.1 !important;
+            }
+            
+            .navbar-brand img {
+                height: 36px !important;
+                width: 36px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-brand span {
+                font-size: 12px !important;
+                line-height: 1 !important;
+            }
+            
+            .navbar-brand img {
+                height: 32px !important;
+                width: 32px !important;
+            }
+        }
+        
+        /* Mobile Button Enhancements */
+        @media (max-width: 576px) {
+            .btn-lg {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Mobile Card Adjustments */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .card-header h4, .card-header h5 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Mobile List Adjustments */
+        @media (max-width: 576px) {
+            .list-unstyled li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .list-unstyled li a {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Touch-friendly interactions */
+        .btn, a {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
+        /* Mobile-specific spacing */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            .py-5 {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+        }
+        
+        /* Additional Mobile Navbar Fixes */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 1rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 60px);
+            }
+            
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 0.4rem 0.8rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 50px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.3rem 0.6rem !important;
+            }
+            
+            .navbar-brand {
+                max-width: calc(100% - 45px);
+            }
+            
+            .navbar-brand span {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+        }
+        
+        /* Ensure navbar doesn't overflow */
+        .navbar-brand {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-brand {
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -61,8 +217,8 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
-            <a href="index.html" class="navbar-brand ml-lg-3 d-flex align-items-center">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-3 px-3 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
                 <img src="img/prime-team-logo.png" alt="Prime Team Platform" class="mr-2" style="height: 64px; width: 64px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
                 <span class="text-primary font-weight-bold" style="font-family: 'Jost', sans-serif; font-size: 28px; text-transform: uppercase; line-height: 1;">Prime Team Platform</span>
             </a>
@@ -99,38 +255,48 @@
         <div class="container py-5">
             <div class="row">
                 <!-- Course Sidebar -->
-                <div class="col-lg-3">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0"><i class="fa fa-list mr-2"></i>Course Modules</h5>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            <a href="#module1" class="list-group-item list-group-item-action">Module 1: Organic Chemistry</a>
-                            <a href="#module2" class="list-group-item list-group-item-action">Module 2: Physical Chemistry</a>
-                            <a href="#module3" class="list-group-item list-group-item-action">Module 3: Inorganic Chemistry</a>
-                            <a href="#module4" class="list-group-item list-group-item-action">Module 4: Analytical Chemistry</a>
-                            <a href="#module5" class="list-group-item list-group-item-action">Module 5: Biochemistry</a>
-                            <a href="#module6" class="list-group-item list-group-item-action">Module 6: Environmental Chemistry</a>
-                        </div>
+                <div class="col-lg-3 col-md-12 mb-4">
+                    <!-- Mobile Toggle Button -->
+                    <div class="d-lg-none mb-3">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-expanded="false" aria-controls="sidebarCollapse">
+                            <i class="fa fa-bars mr-2"></i>Course Navigation
+                        </button>
                     </div>
                     
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="mb-0"><i class="fa fa-download mr-2"></i>Resources</h5>
+                    <!-- Collapsible Sidebar -->
+                    <div class="collapse d-lg-block" id="sidebarCollapse">
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fa fa-list mr-2"></i>Course Modules</h5>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="#module1" class="list-group-item list-group-item-action">Module 1: Organic Chemistry</a>
+                                <a href="#module2" class="list-group-item list-group-item-action">Module 2: Physical Chemistry</a>
+                                <a href="#module3" class="list-group-item list-group-item-action">Module 3: Inorganic Chemistry</a>
+                                <a href="#module4" class="list-group-item list-group-item-action">Module 4: Analytical Chemistry</a>
+                                <a href="#module5" class="list-group-item list-group-item-action">Module 5: Biochemistry</a>
+                                <a href="#module6" class="list-group-item list-group-item-action">Module 6: Environmental Chemistry</a>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="https://drive.google.com/file/d/0JKL012LMN234OPQ567RST890UVW123XYZ456A789012BCD345FGH678IJK901/view?usp=sharing" target="_blank" class="text-primary"><i class="fa fa-file-pdf mr-2"></i>Lab Manual</a></li>
-                                <li><a href="https://drive.google.com/file/d/1KLM123MNO345PQR678STU901VWX234YZ567890ABC123DEF456GHI789JKL012/view?usp=sharing" target="_blank" class="text-primary"><i class="fa fa-file-pdf mr-2"></i>Periodic Table</a></li>
-                                <li><a href="https://drive.google.com/file/d/2LMN234NOP456QRS789TUV012WXY345Z678901BCD234EFG567HIJ890KLM123/view?usp=sharing" target="_blank" class="text-primary"><i class="fa fa-file-pdf mr-2"></i>Formula Sheet</a></li>
-                                <li><a href="https://drive.google.com/file/d/3MNO345OPQ567RST890UVW123XYZ456A789012BCD345FGH678IJK901LMN234/view?usp=sharing" target="_blank" class="text-primary"><i class="fa fa-file-pdf mr-2"></i>Practice Problems</a></li>
-                            </ul>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fa fa-download mr-2"></i>Resources</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/0JKL012LMN234OPQ567RST890UVW123XYZ456A789012BCD345FGH678IJK901/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-pdf mr-2"></i>Lab Manual</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/1KLM123MNO345PQR678STU901VWX234YZ567890ABC123DEF456GHI789JKL012/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-pdf mr-2"></i>Periodic Table</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/2LMN234NOP456QRS789TUV012WXY345Z678901BCD234EFG567HIJ890KLM123/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-pdf mr-2"></i>Formula Sheet</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/3MNO345OPQ567RST890UVW123XYZ456A789012BCD345FGH678IJK901LMN234/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-pdf mr-2"></i>Practice Problems</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-md-12">
                     <!-- Course Overview -->
                     <div class="card mb-4">
                         <div class="card-header bg-primary text-white">
@@ -404,15 +570,6 @@
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="text-center mb-4">
-                        <a href="detail6.html" class="btn btn-primary btn-lg mr-3">
-                            <i class="fa fa-arrow-left mr-2"></i>Back to Course Details
-                        </a>
-                        <a href="#" class="btn btn-success btn-lg">
-                            <i class="fa fa-download mr-2"></i>Download Course Materials
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -436,6 +593,36 @@
     
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        // Mobile-specific enhancements
+        $(document).ready(function() {
+            // Auto-close sidebar on mobile after clicking a link
+            $('.list-group-item-action').on('click', function() {
+                if ($(window).width() < 992) {
+                    $('#sidebarCollapse').collapse('hide');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 1000);
+                }
+            });
+        });
+        
+        // Handle window resize
+        $(window).on('resize', function() {
+            if ($(window).width() >= 992) {
+                $('#sidebarCollapse').collapse('show');
+            }
+        });
+    </script>
 
 </body>
 
