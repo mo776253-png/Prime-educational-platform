@@ -24,69 +24,221 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     
-    <!-- Video Squares Styling -->
+    <!-- Enhanced Mobile-Responsive Styling -->
     <style>
+        /* Video Squares - Enhanced Mobile Support */
         .video-square {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             color: white;
             cursor: pointer;
             transition: all 0.3s ease;
-            height: 150px;
+            height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            min-height: 120px;
         }   
         
         .video-square:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         
+        .video-square:active {
+            transform: translateY(0);
+        }
+        
         .video-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 8px;
             opacity: 0.9;
         }
         
         .video-square h6 {
             margin: 0;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            line-height: 1.2;
         }
         
         .video-square small {
             opacity: 0.8;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         
+        /* Mobile-specific video square adjustments */
+        @media (max-width: 768px) {
+            .video-square {
+                height: 120px;
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .video-icon {
+                font-size: 1.8rem;
+                margin-bottom: 6px;
+            }
+            
+            .video-square h6 {
+                font-size: 0.8rem;
+            }
+            
+            .video-square small {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .video-square {
+                height: 100px;
+                padding: 10px;
+            }
+            
+            .video-icon {
+                font-size: 1.5rem;
+            }
+            
+            .video-square h6 {
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Modal Enhancements for Mobile */
         .video-modal .modal-dialog {
-            max-width: 600px;
+            max-width: 95%;
+            margin: 10px auto;
         }
         
         .video-player {
             width: 100%;
-            height: 400px;
+            height: 300px;
             border-radius: 10px;
-            aspect-ratio: 1/1;
+        }
+        
+        @media (max-width: 768px) {
+            .video-player {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .video-player {
+                height: 200px;
+            }
         }
         
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 400px;
             margin: 0 auto;
         }
         
         .video-info {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             margin-top: 15px;
+        }
+        
+        /* File Preview Modal Mobile Optimization */
+        .file-preview-container iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .file-preview-container iframe {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .file-preview-container iframe {
+                height: 300px;
+            }
+        }
+        
+        /* Mobile Navigation Enhancements */
+        @media (max-width: 768px) {
+            .navbar-brand span {
+                font-size: 20px !important;
+            }
+            
+            .navbar-brand img {
+                height: 48px !important;
+                width: 48px !important;
+            }
+        }
+        
+        /* Mobile Button Enhancements */
+        @media (max-width: 576px) {
+            .btn-lg {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Mobile Card Adjustments */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .card-header h4, .card-header h5 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Mobile List Adjustments */
+        @media (max-width: 576px) {
+            .list-unstyled li {
+                margin-bottom: 0.5rem;
+            }
+            
+            .list-unstyled li a {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Touch-friendly interactions */
+        .btn, .video-square, a {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
+        /* Mobile-specific spacing */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            .py-5 {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+        }
+        
+        /* Mobile modal improvements */
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+            
+            .modal-content {
+                border-radius: 10px;
+            }
         }
     </style>
 </head>
@@ -165,39 +317,49 @@
         <div class="container py-5">
             <div class="row">
                 <!-- Course Sidebar -->
-                <div class="col-lg-3">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0"><i class="fa fa-list mr-2"></i>Course Modules</h5>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            <a href="#module1" class="list-group-item list-group-item-action">Module 1: Algebra Fundamentals</a>
-                            <a href="#module2" class="list-group-item list-group-item-action">Module 2: Functions & Graphs</a>
-                            <a href="#module3" class="list-group-item list-group-item-action">Module 3: Trigonometry</a>
-                            <a href="#module4" class="list-group-item list-group-item-action">Module 4: Statistics & Probability</a>
-                            <a href="#module5" class="list-group-item list-group-item-action">Module 5: Geometry</a>
-                            <a href="#module6" class="list-group-item list-group-item-action">Module 6: Calculus Basics</a>
-                        </div>
+                <div class="col-lg-3 col-md-12 mb-4">
+                    <!-- Mobile Toggle Button -->
+                    <div class="d-lg-none mb-3">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-expanded="false" aria-controls="sidebarCollapse">
+                            <i class="fa fa-bars mr-2"></i>Course Navigation
+                        </button>
                     </div>
                     
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="mb-0"><i class="fa fa-tasks mr-2"></i>Assignments</h5>
+                    <!-- Collapsible Sidebar -->
+                    <div class="collapse d-lg-block" id="sidebarCollapse">
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fa fa-list mr-2"></i>Course Modules</h5>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="#module1" class="list-group-item list-group-item-action">Module 1: Algebra Fundamentals</a>
+                                <a href="#module2" class="list-group-item list-group-item-action">Module 2: Functions & Graphs</a>
+                                <a href="#module3" class="list-group-item list-group-item-action">Module 3: Trigonometry</a>
+                                <a href="#module4" class="list-group-item list-group-item-action">Module 4: Statistics & Probability</a>
+                                <a href="#module5" class="list-group-item list-group-item-action">Module 5: Geometry</a>
+                                <a href="#module6" class="list-group-item list-group-item-action">Module 6: Calculus Basics</a>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#" class="text-primary"><i class="fa fa-file-alt mr-2"></i>Assignment 1</a></li>
-                                <li><a href="#" class="text-primary"><i class="fa fa-file-alt mr-2"></i>Assignment 2</a></li>
-                                <li><a href="#" class="text-primary"><i class="fa fa-file-alt mr-2"></i>Assignment 3</a></li>
-                                <li><a href="#" class="text-primary"><i class="fa fa-file-alt mr-2"></i>Assignment 4</a></li>
-                                <li><a href="#" class="text-primary"><i class="fa fa-file-alt mr-2"></i>Assignment 5</a></li>
-                            </ul>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fa fa-tasks mr-2"></i>Assignments</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/9STU901TUV012WXY345Z678901BCD234EFG567HIJ890KLM123NOP456QRS789TUV012/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-alt mr-2"></i>Assignment 1</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/0TUV012UVW123XYZ456A789012BCD345FGH678IJK901LMN234OPQ567RST890UVW123/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-alt mr-2"></i>Assignment 2</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/1UVW123VWX234YZ567890ABC123DEF456GHI789JKL012MNO345PQR678STU901VWX234/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-alt mr-2"></i>Assignment 3</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/2VWX234WXY345Z678901BCD234EFG567HIJ890KLM123NOP456QRS789TUV012WXY345/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-alt mr-2"></i>Assignment 4</a></li>
+                                    <li class="mb-2"><a href="https://drive.google.com/file/d/3WXY345XYZ456A789012BCD345FGH678IJK901LMN234OPQ567RST890UVW123XYZ456/view?usp=sharing" target="_blank" class="text-primary d-block py-1"><i class="fa fa-file-alt mr-2"></i>Assignment 5</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-md-12">
                     <!-- Course Overview -->
                     <div class="card mb-4">
                         <div class="card-header bg-primary text-white">
@@ -756,6 +918,53 @@
                                     </ul>
                                 </div>
                             </div>
+                            
+                            <!-- Assessment Materials Section -->
+                            <div class="mt-4">
+                                <h6><i class="fa fa-download mr-2 text-primary"></i>Assessment Materials</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2">
+                                                <a href="https://drive.google.com/file/d/8BCD234EFG567HIJ890KLM123NOP456QRS789TUV012WXY345Z678901/view?usp=sharing" target="_blank" class="text-primary">
+                                                    <i class="fa fa-file-pdf mr-2"></i>Weekly Quiz Templates
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-primary ml-2" onclick="previewFile('8BCD234EFG567HIJ890KLM123NOP456QRS789TUV012WXY345Z678901', 'Weekly Quiz Templates')">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </button>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="https://drive.google.com/file/d/9CDE345FGH678IJK901LMN234OPQ567RST890UVW123XYZ456A789012/view?usp=sharing" target="_blank" class="text-primary">
+                                                    <i class="fa fa-file-pdf mr-2"></i>Midterm Exam Papers
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-primary ml-2" onclick="previewFile('9CDE345FGH678IJK901LMN234OPQ567RST890UVW123XYZ456A789012', 'Midterm Exam Papers')">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2">
+                                                <a href="https://drive.google.com/file/d/0DEF456GHI789JKL012MNO345PQR678STU901VWX234YZ567890ABC123/view?usp=sharing" target="_blank" class="text-primary">
+                                                    <i class="fa fa-file-pdf mr-2"></i>Final Exam Papers
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-primary ml-2" onclick="previewFile('0DEF456GHI789JKL012MNO345PQR678STU901VWX234YZ567890ABC123', 'Final Exam Papers')">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </button>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="https://drive.google.com/file/d/1EFG567HIJ890KLM123NOP456QRS789TUV012WXY345Z678901BCD234/view?usp=sharing" target="_blank" class="text-primary">
+                                                    <i class="fa fa-file-pdf mr-2"></i>Homework Guidelines
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-primary ml-2" onclick="previewFile('1EFG567HIJ890KLM123NOP456QRS789TUV012WXY345Z678901BCD234', 'Homework Guidelines')">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -764,7 +973,7 @@
                         <a href="detail.html" class="btn btn-primary btn-lg mr-3">
                             <i class="fa fa-arrow-left mr-2"></i>Back to Course Details
                         </a>
-                        <a href="#" class="btn btn-success btn-lg">
+                        <a href="https://drive.google.com/drive/folders/1ABC123DEF456GHI789JKL012MNO345PQR678STU901VWX234YZ567890?usp=sharing" target="_blank" class="btn btn-success btn-lg">
                             <i class="fa fa-download mr-2"></i>Download Course Materials
                         </a>
                     </div>
@@ -819,6 +1028,30 @@
                     <div class="video-info">
                         <h6 id="videoDescription">Video Description</h6>
                         <p id="videoDetails">Click on any video square to start watching the session.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Preview Modal -->
+    <div class="modal fade" id="filePreviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filePreviewTitle">File Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <a id="downloadLink" href="#" target="_blank" class="btn btn-primary">
+                            <i class="fa fa-download mr-2"></i>Download File
+                        </a>
+                    </div>
+                    <div class="file-preview-container">
+                        <iframe id="filePreviewFrame" src="" frameborder="0" style="width: 100%; height: 600px; border-radius: 10px;"></iframe>
                     </div>
                 </div>
             </div>
@@ -920,6 +1153,73 @@
         $('#videoModal').on('hidden.bs.modal', function () {
             var videoPlayer = document.getElementById('videoPlayer');
             videoPlayer.src = '';
+        });
+        
+        // File preview function
+        function previewFile(fileId, fileName) {
+            // Set modal title
+            document.getElementById('filePreviewTitle').textContent = fileName;
+            
+            // Set download link
+            var downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = 'https://drive.google.com/uc?export=download&id=' + fileId;
+            
+            // Set preview iframe
+            var previewFrame = document.getElementById('filePreviewFrame');
+            previewFrame.src = 'https://drive.google.com/file/d/' + fileId + '/preview';
+            
+            // Show modal
+            $('#filePreviewModal').modal('show');
+        }
+        
+        // Clear iframe when modal is closed
+        $('#filePreviewModal').on('hidden.bs.modal', function () {
+            var previewFrame = document.getElementById('filePreviewFrame');
+            previewFrame.src = '';
+        });
+        
+        // Mobile-specific enhancements
+        $(document).ready(function() {
+            // Auto-close sidebar on mobile after clicking a link
+            $('.list-group-item-action').on('click', function() {
+                if ($(window).width() < 992) {
+                    $('#sidebarCollapse').collapse('hide');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 1000);
+                }
+            });
+            
+            // Touch-friendly video square interactions
+            $('.video-square').on('touchstart', function() {
+                $(this).addClass('active');
+            }).on('touchend', function() {
+                $(this).removeClass('active');
+            });
+            
+            // Optimize modal for mobile
+            $('.modal').on('shown.bs.modal', function() {
+                if ($(window).width() < 768) {
+                    $('body').addClass('modal-open-mobile');
+                }
+            }).on('hidden.bs.modal', function() {
+                $('body').removeClass('modal-open-mobile');
+            });
+        });
+        
+        // Handle window resize
+        $(window).on('resize', function() {
+            if ($(window).width() >= 992) {
+                $('#sidebarCollapse').collapse('show');
+            }
         });
     </script>
 </body>
